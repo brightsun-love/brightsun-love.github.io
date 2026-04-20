@@ -8,75 +8,56 @@
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial;
       background: #fff;
       color: #111;
-      scroll-behavior: smooth;
+    }
+
+    /* NAVBAR */
+    .nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      border-bottom: 1px solid #eee;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: "Times New Roman", serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    .nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #111;
+      font-size: 14px;
     }
 
     /* HERO */
     .hero {
-      height: 90vh;
+      height: 85vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-
-      background: radial-gradient(circle at center, #f5f5f7, #ffffff);
+      background: radial-gradient(circle, #f5f5f7, #fff);
     }
 
-    /* subtle glow */
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: rgba(0,0,0,0.05);
-      filter: blur(120px);
-      border-radius: 50%;
-      z-index: 0;
-    }
-
-    /* BRAND TITLE */
     .hero h1 {
-      position: relative;
-      font-size: 64px;
-      letter-spacing: 8px;
+      font-size: 60px;
+      letter-spacing: 6px;
       font-family: "Times New Roman", serif;
       margin: 0;
-      z-index: 1;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 1.2s ease forwards;
-    }
-
-    /* brand underline */
-    .hero h1::after {
-      content: "";
-      display: block;
-      width: 60px;
-      height: 2px;
-      background: #111;
-      margin: 15px auto 0;
-      opacity: 0.6;
     }
 
     .hero p {
-      position: relative;
-      margin-top: 20px;
-      font-size: 18px;
+      margin-top: 15px;
       color: #666;
-      max-width: 500px;
-      z-index: 1;
-      opacity: 0;
-      animation: fadeUp 1.5s ease forwards;
-    }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     /* SECTIONS */
@@ -85,14 +66,6 @@
       margin: 120px auto;
       padding: 20px;
       text-align: center;
-      opacity: 0;
-      transform: translateY(60px);
-      transition: all 1s ease;
-    }
-
-    .section.show {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .section img {
@@ -100,58 +73,39 @@
       height: 420px;
       object-fit: cover;
       border-radius: 20px;
-      transition: transform 0.6s ease;
-    }
-
-    .section img:hover {
-      transform: scale(1.02);
     }
 
     .section h2 {
-      font-size: 34px;
-      margin-top: 25px;
-      font-weight: 500;
+      margin-top: 20px;
+      font-size: 32px;
     }
 
     .section p {
       color: #666;
-      font-size: 16px;
-      margin-top: 10px;
     }
 
     a {
       text-decoration: none;
       color: inherit;
     }
-
-    /* MOBILE */
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 40px;
-        letter-spacing: 4px;
-      }
-
-      .hero p {
-        font-size: 16px;
-        padding: 0 15px;
-      }
-
-      .section img {
-        height: 260px;
-      }
-
-      .section h2 {
-        font-size: 24px;
-      }
-    }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
+<div class="nav">
+  <div class="logo">CARLOG</div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="#">Cars</a>
+    <a href="#">About</a>
+  </div>
+</div>
+
 <!-- HERO -->
 <div class="hero">
   <h1>CARLOG</h1>
-  <p>Discover cars. Experience design. Explore performance.</p>
+  <p>Discover cars. Experience design.</p>
 </div>
 
 <!-- MERCEDES -->
@@ -159,7 +113,7 @@
   <div class="section">
     <img src="images/car1.jpg">
     <h2>Mercedes E200</h2>
-    <p>Luxury redefined. Comfort above everything.</p>
+    <p>Luxury redefined.</p>
   </div>
 </a>
 
@@ -168,25 +122,9 @@
   <div class="section">
     <img src="tesla-model-3.jpg">
     <h2>Tesla Model 3</h2>
-    <p>The future of driving. Electric and intelligent.</p>
+    <p>Future of driving.</p>
   </div>
 </a>
-
-<script>
-const sections = document.querySelectorAll('.section');
-
-function revealSections() {
-  sections.forEach(section => {
-    const rect = section.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 100) {
-      section.classList.add('show');
-    }
-  });
-}
-
-window.addEventListener('scroll', revealSections);
-window.addEventListener('load', revealSections);
-</script>
 
 </body>
 </html>
