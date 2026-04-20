@@ -13,33 +13,13 @@
     header {
       text-align: center;
       font-size: 42px;
-      padding: 40px 20px;
+      padding: 50px 20px 30px;
       letter-spacing: 3px;
       font-family: "Times New Roman", serif;
     }
 
-    .filters {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .filters button {
-      margin: 5px;
-      padding: 10px 20px;
-      border-radius: 25px;
-      border: 1px solid #ddd;
-      background: white;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .filters button:hover {
-      background: black;
-      color: white;
-    }
-
     .container {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: auto;
       padding: 20px;
       display: grid;
@@ -53,7 +33,7 @@
       border-radius: 18px;
       overflow: hidden;
       border: 1px solid #eee;
-      transition: 0.4s;
+      transition: all 0.4s ease;
       opacity: 0;
       transform: translateY(30px);
     }
@@ -65,7 +45,7 @@
 
     .card:hover {
       transform: scale(1.04);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     }
 
     .card img {
@@ -81,6 +61,7 @@
     .card-content h2 {
       margin: 0;
       font-size: 22px;
+      font-weight: 500;
     }
 
     .tag {
@@ -89,9 +70,15 @@
       margin-top: 6px;
     }
 
+    /* MOBILE */
     @media (max-width: 768px) {
       .container {
         grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      header {
+        font-size: 32px;
       }
     }
   </style>
@@ -100,16 +87,10 @@
 
 <header>CARLOG</header>
 
-<div class="filters">
-  <button onclick="filterCars('all')">All</button>
-  <button onclick="filterCars('luxury')">Luxury</button>
-  <button onclick="filterCars('electric')">Electric</button>
-</div>
-
 <div class="container">
 
   <!-- MERCEDES -->
-  <a href="mercedes.html" class="card" data-category="luxury">
+  <a href="mercedes.html" class="card">
     <img src="images/car1.jpg">
     <div class="card-content">
       <h2>Mercedes E200</h2>
@@ -118,7 +99,7 @@
   </a>
 
   <!-- TESLA -->
-  <a href="tesla.html" class="card" data-category="electric">
+  <a href="tesla.html" class="card">
     <img src="tesla-model-3.jpg">
     <div class="card-content">
       <h2>Tesla Model 3</h2>
@@ -126,30 +107,9 @@
     </div>
   </a>
 
-  <!-- BMW -->
-  <a href="bmw.html" class="card" data-category="luxury">
-    <img src="bmw.jpg">
-    <div class="card-content">
-      <h2>BMW 5 Series</h2>
-      <div class="tag">Luxury Sedan</div>
-    </div>
-  </a>
-
 </div>
 
 <script>
-function filterCars(category) {
-  let cards = document.querySelectorAll('.card');
-
-  cards.forEach(card => {
-    if (category === 'all' || card.getAttribute('data-category') === category) {
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-}
-
 const cards = document.querySelectorAll('.card');
 
 function revealCards() {
