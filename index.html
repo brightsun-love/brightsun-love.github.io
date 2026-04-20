@@ -4,83 +4,50 @@
   <title>CARLOG</title>
   <style>
     body {
-      font-family: Georgia, "Times New Roman", serif;
       margin: 0;
-      background: #ffffff;
-      color: #111;
+      text-align: center;
+      background: white;
     }
 
+    /* Title (Roman style feel) */
     header {
+      font-family: "Times New Roman", serif;
+      font-size: 40px;
       padding: 30px;
-      text-align: center;
-      font-size: 32px;
-      letter-spacing: 2px;
       border-bottom: 1px solid #eee;
+      letter-spacing: 3px;
     }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .filters {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .filters button {
-      margin: 5px;
-      padding: 8px 16px;
+    /* Options (Georgia font) */
+    .menu button {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      margin: 20px;
+      padding: 10px 20px;
       border: 1px solid #ccc;
       background: white;
       cursor: pointer;
-      border-radius: 20px;
     }
 
-    .filters button:hover {
+    .menu button:hover {
       background: black;
       color: white;
     }
 
-    .post {
-      margin-bottom: 30px;
-      display: block;
+    /* Content section */
+    .content {
+      margin-top: 30px;
     }
 
-    .card {
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #eee;
-      transition: 0.3s;
+    .content h2 {
+      font-family: Georgia, serif;
+      font-size: 24px;
     }
 
-    .card:hover {
-      transform: scale(1.02);
-    }
-
-    .card img {
-      width: 100%;
-      display: block;
-    }
-
-    .card-content {
-      padding: 15px;
-    }
-
-    .card-content h2 {
-      margin: 0 0 8px;
-      font-size: 20px;
-    }
-
-    .card-content a {
-      text-decoration: none;
-      color: black;
-    }
-
-    .tag {
-      font-size: 13px;
-      color: gray;
+    .content img {
+      width: 60%;
+      margin-top: 15px;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -88,54 +55,28 @@
 
 <header>CARLOG</header>
 
-<div class="container">
-
-  <!-- FILTER BUTTONS -->
-  <div class="filters">
-    <button onclick="filterPosts('all')">All</button>
-    <button onclick="filterPosts('luxury')">Luxury Sedan</button>
-    <button onclick="filterPosts('electric')">Electric Car</button>
-  </div>
-
-  <!-- MERCEDES -->
-  <div class="post" data-category="luxury">
-    <div class="card">
-      <img src="images/car1.jpg">
-      <div class="card-content">
-        <h2><a href="post1.html">Mercedes E200</a></h2>
-        <p class="tag">Luxury Sedan</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- TESLA -->
-  <div class="post" data-category="electric">
-    <div class="card">
-      <img src="images/car2.jpg">
-      <div class="card-content">
-        <h2><a href="post2.html">Tesla Model 3</a></h2>
-        <p class="tag">Electric Car</p>
-      </div>
-    </div>
-  </div>
-
+<!-- OPTIONS -->
+<div class="menu">
+  <button onclick="showLuxury()">Luxury</button>
+  <button onclick="showElectric()">Electric</button>
 </div>
 
-<script>
-function filterPosts(category) {
-  let posts = document.querySelectorAll('.post');
+<!-- RESULT AREA -->
+<div class="content" id="contentArea"></div>
 
-  posts.forEach(post => {
-    if (category === 'all') {
-      post.style.display = 'block';
-    } else {
-      if (post.getAttribute('data-category') === category) {
-        post.style.display = 'block';
-      } else {
-        post.style.display = 'none';
-      }
-    }
-  });
+<script>
+function showLuxury() {
+  document.getElementById("contentArea").innerHTML = `
+    <h2>Mercedes E200</h2>
+    <img src="images/car1.jpg">
+  `;
+}
+
+function showElectric() {
+  document.getElementById("contentArea").innerHTML = `
+    <h2>Tesla Model 3</h2>
+    <img src="images/car2.jpg">
+  `;
 }
 </script>
 
