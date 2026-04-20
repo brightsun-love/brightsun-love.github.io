@@ -11,9 +11,9 @@
       scroll-behavior: smooth;
     }
 
-    /* HERO (clean, no image) */
+    /* HERO (Minimal Clean) */
     .hero {
-      height: 80vh;
+      height: 90vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -22,7 +22,7 @@
     }
 
     .hero h1 {
-      font-size: 52px;
+      font-size: 56px;
       letter-spacing: 5px;
       font-family: "Times New Roman", serif;
       margin: 0;
@@ -32,9 +32,10 @@
       margin-top: 15px;
       font-size: 18px;
       color: #666;
+      max-width: 500px;
     }
 
-    /* SECTION */
+    /* SECTIONS */
     .section {
       max-width: 900px;
       margin: 120px auto;
@@ -82,7 +83,12 @@
     /* MOBILE */
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 34px;
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 16px;
+        padding: 0 15px;
       }
 
       .section img {
@@ -97,10 +103,10 @@
 </head>
 <body>
 
-<!-- CLEAN HERO -->
+<!-- HERO -->
 <div class="hero">
   <h1>CARLOG</h1>
-  <p>Discover cars. Experience design. Feel performance.</p>
+  <p>Discover cars. Experience design. Explore performance.</p>
 </div>
 
 <!-- MERCEDES -->
