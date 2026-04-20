@@ -9,39 +9,29 @@
       background: #fff;
       color: #111;
       scroll-behavior: smooth;
-      overflow-x: hidden;
     }
 
-    /* HERO PARALLAX */
+    /* HERO (clean, no image) */
     .hero {
-      height: 100vh;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero img {
-      width: 100%;
-      height: 120%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: scale(1.1);
-      transition: transform 1s ease;
-    }
-
-    .hero-text {
-      position: relative;
-      z-index: 2;
-      height: 100%;
+      height: 80vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: white;
+      text-align: center;
+    }
+
+    .hero h1 {
       font-size: 52px;
       letter-spacing: 5px;
       font-family: "Times New Roman", serif;
-      background: rgba(0,0,0,0.3);
+      margin: 0;
+    }
+
+    .hero p {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #666;
     }
 
     /* SECTION */
@@ -69,12 +59,12 @@
     }
 
     .section img:hover {
-      transform: scale(1.03);
+      transform: scale(1.02);
     }
 
     .section h2 {
       font-size: 34px;
-      margin-top: 20px;
+      margin-top: 25px;
       font-weight: 500;
     }
 
@@ -91,8 +81,8 @@
 
     /* MOBILE */
     @media (max-width: 768px) {
-      .hero-text {
-        font-size: 32px;
+      .hero h1 {
+        font-size: 34px;
       }
 
       .section img {
@@ -107,10 +97,10 @@
 </head>
 <body>
 
-<!-- HERO -->
+<!-- CLEAN HERO -->
 <div class="hero">
-  <img src="images/car1.jpg" id="heroImg">
-  <div class="hero-text">CARLOG</div>
+  <h1>CARLOG</h1>
+  <p>Discover cars. Experience design. Feel performance.</p>
 </div>
 
 <!-- MERCEDES -->
@@ -132,14 +122,6 @@
 </a>
 
 <script>
-/* PARALLAX EFFECT */
-window.addEventListener("scroll", function() {
-  let scroll = window.scrollY;
-  let heroImg = document.getElementById("heroImg");
-  heroImg.style.transform = "translateY(" + scroll * 0.3 + "px) scale(1.1)";
-});
-
-/* SECTION REVEAL */
 const sections = document.querySelectorAll('.section');
 
 function revealSections() {
