@@ -6,48 +6,64 @@
     body {
       margin: 0;
       text-align: center;
-      background: white;
+      background: #fff;
+      color: #111;
     }
 
-    /* Title (Roman style feel) */
+    /* Header */
     header {
       font-family: "Times New Roman", serif;
-      font-size: 40px;
+      font-size: 42px;
       padding: 30px;
+      letter-spacing: 4px;
       border-bottom: 1px solid #eee;
-      letter-spacing: 3px;
     }
 
-    /* Options (Georgia font) */
+    /* Menu */
+    .menu {
+      margin-top: 30px;
+    }
+
     .menu button {
       font-family: Georgia, serif;
       font-size: 18px;
-      margin: 20px;
-      padding: 10px 20px;
+      margin: 10px;
+      padding: 12px 25px;
+      border-radius: 30px;
       border: 1px solid #ccc;
       background: white;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     .menu button:hover {
       background: black;
       color: white;
+      transform: scale(1.05);
     }
 
-    /* Content section */
+    /* Content */
     .content {
-      margin-top: 30px;
+      margin-top: 40px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .content.show {
+      opacity: 1;
     }
 
     .content h2 {
       font-family: Georgia, serif;
-      font-size: 24px;
+      font-size: 26px;
+      margin-bottom: 15px;
     }
 
     .content img {
       width: 60%;
-      margin-top: 15px;
-      border-radius: 10px;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
   </style>
 </head>
@@ -55,28 +71,38 @@
 
 <header>CARLOG</header>
 
-<!-- OPTIONS -->
 <div class="menu">
   <button onclick="showLuxury()">Luxury</button>
   <button onclick="showElectric()">Electric</button>
 </div>
 
-<!-- RESULT AREA -->
 <div class="content" id="contentArea"></div>
 
 <script>
 function showLuxury() {
-  document.getElementById("contentArea").innerHTML = `
-    <h2>Mercedes E200</h2>
-    <img src="images/car1.jpg">
-  `;
+  let area = document.getElementById("contentArea");
+  area.classList.remove("show");
+
+  setTimeout(() => {
+    area.innerHTML = `
+      <h2>Mercedes E200</h2>
+      <img src="images/car1.jpg">
+    `;
+    area.classList.add("show");
+  }, 100);
 }
 
 function showElectric() {
-  document.getElementById("contentArea").innerHTML = `
-    <h2>Tesla Model 3</h2>
-    <img src="images/car2.jpg">
-  `;
+  let area = document.getElementById("contentArea");
+  area.classList.remove("show");
+
+  setTimeout(() => {
+    area.innerHTML = `
+      <h2>Tesla Model 3</h2>
+      <img src="images/car2.jpg">
+    `;
+    area.classList.add("show");
+  }, 100);
 }
 </script>
 
