@@ -14,10 +14,23 @@
     /* HERO */
     .hero {
       height: 100vh;
+      background: url("images/car1.jpg") center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+    }
+
+    .hero h1 {
+      position: relative;
+      color: white;
       font-size: 48px;
       letter-spacing: 4px;
       font-family: "Times New Roman", serif;
@@ -71,7 +84,7 @@
 
     /* MOBILE */
     @media (max-width: 768px) {
-      .hero {
+      .hero h1 {
         font-size: 32px;
       }
 
@@ -89,7 +102,7 @@
 
 <!-- HERO -->
 <div class="hero">
-  CARLOG
+  <h1>CARLOG</h1>
 </div>
 
 <!-- MERCEDES -->
