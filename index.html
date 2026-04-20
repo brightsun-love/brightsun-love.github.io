@@ -31,36 +31,21 @@
       border: 1px solid #ccc;
       background: white;
       cursor: pointer;
-      transition: all 0.3s ease;
     }
 
     .menu button:hover {
       background: black;
       color: white;
-      transform: scale(1.05);
     }
 
     .content {
       margin-top: 40px;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .content.show {
-      opacity: 1;
-    }
-
-    .content h2 {
-      font-family: Georgia, serif;
-      font-size: 26px;
-      margin-bottom: 15px;
     }
 
     .content img {
       width: 60%;
       max-width: 600px;
       border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
   </style>
 </head>
@@ -77,29 +62,17 @@
 
 <script>
 function showLuxury() {
-  let area = document.getElementById("contentArea");
-  area.classList.remove("show");
-
-  setTimeout(() => {
-    area.innerHTML = `
-      <h2>Mercedes E200</h2>
-      <img src="images/car1.jpg">
-    `;
-    area.classList.add("show");
-  }, 100);
+  document.getElementById("contentArea").innerHTML = `
+    <h2>Mercedes E200</h2>
+    <img src="car1.jpg">
+  `;
 }
 
 function showElectric() {
-  let area = document.getElementById("contentArea");
-  area.classList.remove("show");
-
-  setTimeout(() => {
-    area.innerHTML = `
-      <h2>Tesla Model 3</h2>
-      <img src="images/tesla-model-3.jpg">
-    `;
-    area.classList.add("show");
-  }, 100);
+  document.getElementById("contentArea").innerHTML = `
+    <h2>Tesla Model 3</h2>
+    <img src="tesla-model-3.jpg">
+  `;
 }
 </script>
 
