@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mercedes-Benz E200 Review</title>
+  <title>Mercedes-Benz E200</title>
   <style>
     body {
       margin: 0;
@@ -10,28 +10,35 @@
       color: #111;
     }
 
+    /* HERO */
+    .hero {
+      width: 100%;
+      height: 70vh;
+      background: url("images/car1.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      background: rgba(0,0,0,0.4);
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    /* CONTENT */
     .container {
-      max-width: 850px;
+      max-width: 900px;
       margin: 60px auto;
       padding: 20px;
     }
 
-    h1 {
-      font-size: 38px;
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
     h2 {
       margin-top: 40px;
-      font-size: 24px;
-      font-weight: 500;
-    }
-
-    h3 {
-      margin-top: 25px;
-      font-size: 18px;
-      font-weight: 500;
+      font-size: 26px;
     }
 
     p {
@@ -40,28 +47,30 @@
       font-size: 16px;
     }
 
-    /* 🔥 FIXED IMAGE (professional ratio) */
-    .hero-img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-      border-radius: 14px;
-      margin: 30px 0;
-    }
-
-    .box {
+    /* SPECS BOX */
+    .specs {
       background: #f7f7f7;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 20px;
+      border-radius: 12px;
       margin-top: 20px;
-      font-size: 15px;
     }
 
-    .highlight {
-      font-weight: 500;
-      color: #000;
+    /* GALLERY */
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 30px;
     }
 
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* BUTTON */
     a {
       display: inline-block;
       margin-top: 40px;
@@ -80,75 +89,44 @@
 </head>
 <body>
 
+<!-- HERO SECTION -->
+<div class="hero">
+  <h1>Mercedes-Benz E200</h1>
+</div>
+
 <div class="container">
 
-<h1>Mercedes-Benz E200 Review (2026)</h1>
-
-<img src="images/car1.jpg" class="hero-img">
-
 <p>
-If you're searching for a premium luxury sedan in India, the Mercedes-Benz E-Class E200 is one of the most talked-about options. It focuses on comfort, advanced technology, and brand prestige rather than aggressive performance.
+The Mercedes-Benz E200 is a luxury sedan focused on comfort, advanced technology, and premium experience. It is designed more for relaxation than aggressive driving.
 </p>
 
 <h2>Overview</h2>
-<div class="box">
+<div class="specs">
 Engine: 2.0L turbo petrol<br>
 Power: ~201 bhp<br>
 Torque: 320 Nm<br>
 Gearbox: 9-speed automatic<br>
-0–100 km/h: ~7.5 sec<br>
 Mileage: ~15 km/l<br>
 Price: ₹78 lakh – ₹1 crore
 </div>
 
-<h2>Key Features</h2>
-
-<h3>Rear Seat Comfort</h3>
+<h2>Key Highlights</h2>
 <p>
-Long wheelbase provides excellent legroom. Includes reclining seats, climate control, and infotainment tablet—ideal for chauffeur-driven use.
+• Best-in-class rear seat comfort<br>
+• Advanced digital dashboard<br>
+• Premium interior materials<br>
+• Smooth and refined driving experience
 </p>
 
-<h3>Digital Technology</h3>
-<p>
-Dual 12.3-inch displays, MBUX system, voice commands, Apple CarPlay & Android Auto.
-</p>
-
-<h3>Safety</h3>
-<p>
-7+ airbags, 360° camera, blind spot assist, and pre-safe crash systems.
-</p>
-
-<h3>Engine & Gearbox</h3>
-<p>
-Smooth turbo petrol engine paired with a refined 9-speed automatic gearbox.
-</p>
-
-<h3>Interior Quality</h3>
-<p>
-Leather seats, wood trims, and 64-color ambient lighting create a premium feel.
-</p>
-
-<h2>Pros</h2>
-<p>
-• Exceptional comfort<br>
-• Premium interiors<br>
-• Smooth driving<br>
-• Best rear seat experience<br>
-• Stable at high speeds
-</p>
-
-<h2>Cons</h2>
-<p>
-• Not sporty<br>
-• Firm ride at low speeds<br>
-• Expensive maintenance<br>
-• Large size<br>
-• No hybrid option
-</p>
+<h2>Gallery</h2>
+<div class="gallery">
+  <img src="images/car1.jpg">
+  <img src="images/car1.jpg">
+</div>
 
 <h2>Final Verdict</h2>
-<p class="highlight">
-Buy if you want luxury, comfort, and brand value. Avoid if you want sporty performance or low maintenance.
+<p>
+Perfect for buyers who want luxury, comfort, and brand value. Not ideal for those seeking sporty performance.
 </p>
 
 <a href="index.html">← Back to Home</a>
