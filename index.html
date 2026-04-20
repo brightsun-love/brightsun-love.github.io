@@ -5,69 +5,72 @@
   <style>
     body {
       margin: 0;
-      background: #ffffff;
-      color: #111;
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial;
-      text-align: center;
-    }
-
-    header {
-      font-family: "Times New Roman", serif;
-      font-size: 42px;
-      padding: 40px 20px 20px;
-      letter-spacing: 3px;
-    }
-
-    .menu {
-      margin-top: 20px;
-    }
-
-    .menu button {
-      font-size: 16px;
-      margin: 8px;
-      padding: 10px 22px;
-      border-radius: 30px;
-      border: 1px solid #ddd;
       background: #fff;
-      cursor: pointer;
-      transition: all 0.25s ease;
+      color: #111;
     }
 
-    .menu button:hover {
-      background: #111;
-      color: #fff;
-      border-color: #111;
+    /* HEADER */
+    header {
+      text-align: center;
+      font-size: 42px;
+      padding: 40px 20px;
+      letter-spacing: 3px;
+      font-family: "Times New Roman", serif;
     }
 
-    .content {
-      margin-top: 60px;
-      opacity: 0;
-      transition: opacity 0.6s ease;
+    /* GRID */
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
     }
 
-    .content.show {
-      opacity: 1;
-    }
-
-    .content h2 {
-      font-size: 24px;
-      font-weight: 500;
-      margin-bottom: 20px;
-    }
-
-    .content h2 a {
+    /* CARD */
+    .card {
       text-decoration: none;
       color: #111;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #eee;
     }
 
-    .content h2 a:hover {
-      color: #555;
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
-    .content img {
-      width: 70%;
-      max-width: 700px;
-      border-radius: 14px;
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .tag {
+      font-size: 13px;
+      color: gray;
+      margin-top: 5px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 700px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -75,40 +78,27 @@
 
 <header>CARLOG</header>
 
-<div class="menu">
-  <button onclick="showLuxury()">Luxury</button>
-  <button onclick="showElectric()">Electric</button>
+<div class="container">
+
+  <!-- MERCEDES -->
+  <a href="mercedes.html" class="card">
+    <img src="images/car1.jpg">
+    <div class="card-content">
+      <h2>Mercedes E200</h2>
+      <div class="tag">Luxury Sedan</div>
+    </div>
+  </a>
+
+  <!-- TESLA -->
+  <a href="tesla.html" class="card">
+    <img src="tesla-model-3.jpg">
+    <div class="card-content">
+      <h2>Tesla Model 3</h2>
+      <div class="tag">Electric Car</div>
+    </div>
+  </a>
+
 </div>
-
-<div class="content" id="contentArea"></div>
-
-<script>
-function showLuxury() {
-  let area = document.getElementById("contentArea");
-  area.classList.remove("show");
-
-  setTimeout(() => {
-    area.innerHTML = `
-      <h2><a href="mercedes.html">Mercedes E200</a></h2>
-      <img src="images/car1.jpg">
-    `;
-    area.classList.add("show");
-  }, 100);
-}
-
-function showElectric() {
-  let area = document.getElementById("contentArea");
-  area.classList.remove("show");
-
-  setTimeout(() => {
-    area.innerHTML = `
-      <h2><a href="tesla.html">Tesla Model 3</a></h2>
-      <img src="tesla-model-3.jpg">
-    `;
-    area.classList.add("show");
-  }, 100);
-}
-</script>
 
 </body>
 </html>
