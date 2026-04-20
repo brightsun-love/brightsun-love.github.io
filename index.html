@@ -25,6 +25,25 @@
       padding: 20px;
     }
 
+    .filters {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filters button {
+      margin: 5px;
+      padding: 8px 15px;
+      border: 1px solid #ccc;
+      background: white;
+      cursor: pointer;
+      border-radius: 20px;
+    }
+
+    .filters button:hover {
+      background: #111;
+      color: white;
+    }
+
     .post {
       margin-bottom: 30px;
       transition: transform 0.2s ease;
@@ -65,19 +84,47 @@
 
 <div class="container">
 
-  <div class="post">
+  <!-- Filters -->
+  <div class="filters">
+    <button onclick="filterPosts('all')">All</button>
+    <button onclick="filterPosts('luxury')">Luxury</button>
+    <button onclick="filterPosts('electric')">Electric</button>
+  </div>
+
+  <!-- Post 1 -->
+  <div class="post" data-category="luxury">
     <img src="images/car1.jpg">
     <h2><a href="post1.html">Mercedes E200 Review</a></h2>
     <p class="tag">Luxury Sedan</p>
   </div>
 
-  <div class="post">
+  <!-- Post 2 -->
+  <div class="post" data-category="electric">
     <img src="images/car2.jpg">
     <h2><a href="post2.html">Tesla Model 3 Review</a></h2>
-    <p class="tag">Electric Car</p>
+    <p class="tag">Electric Vehicle</p>
   </div>
 
 </div>
+
+<!-- Filter Script -->
+<script>
+function filterPosts(category) {
+  let posts = document.querySelectorAll('.post');
+
+  posts.forEach(post => {
+    if (category === 'all') {
+      post.style.display = 'block';
+    } else {
+      if (post.getAttribute('data-category') === category) {
+        post.style.display = 'block';
+      } else {
+        post.style.display = 'none';
+      }
+    }
+  });
+}
+</script>
 
 </body>
 </html>
