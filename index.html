@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DriveCraft</title>
+  <title>CARLOG</title>
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, Arial;
+      font-family: Georgia, "Times New Roman", serif;
       margin: 0;
       background: #ffffff;
       color: #111;
@@ -13,9 +13,8 @@
     header {
       padding: 30px;
       text-align: center;
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: 1px;
+      font-size: 32px;
+      letter-spacing: 2px;
       border-bottom: 1px solid #eee;
     }
 
@@ -27,12 +26,12 @@
 
     .filters {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .filters button {
       margin: 5px;
-      padding: 8px 15px;
+      padding: 8px 16px;
       border: 1px solid #ccc;
       background: white;
       cursor: pointer;
@@ -40,36 +39,43 @@
     }
 
     .filters button:hover {
-      background: #111;
+      background: black;
       color: white;
     }
 
     .post {
       margin-bottom: 30px;
-      transition: transform 0.2s ease;
+      display: block;
     }
 
-    .post:hover {
+    .card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #eee;
+      transition: 0.3s;
+    }
+
+    .card:hover {
       transform: scale(1.02);
     }
 
-    .post img {
+    .card img {
       width: 100%;
-      border-radius: 12px;
+      display: block;
     }
 
-    .post h2 {
-      margin: 12px 0 5px;
-      font-size: 22px;
+    .card-content {
+      padding: 15px;
     }
 
-    .post h2 a {
+    .card-content h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .card-content a {
       text-decoration: none;
-      color: #111;
-    }
-
-    .post h2 a:hover {
-      color: #555;
+      color: black;
     }
 
     .tag {
@@ -80,34 +86,41 @@
 </head>
 <body>
 
-<header>DriveCraft</header>
+<header>CARLOG</header>
 
 <div class="container">
 
-  <!-- Filters -->
+  <!-- FILTER BUTTONS -->
   <div class="filters">
     <button onclick="filterPosts('all')">All</button>
-    <button onclick="filterPosts('luxury')">Luxury</button>
-    <button onclick="filterPosts('electric')">Electric</button>
+    <button onclick="filterPosts('luxury')">Luxury Sedan</button>
+    <button onclick="filterPosts('electric')">Electric Car</button>
   </div>
 
-  <!-- Post 1 -->
+  <!-- MERCEDES -->
   <div class="post" data-category="luxury">
-    <img src="images/car1.jpg">
-    <h2><a href="post1.html">Mercedes E200 Review</a></h2>
-    <p class="tag">Luxury Sedan</p>
+    <div class="card">
+      <img src="images/car1.jpg">
+      <div class="card-content">
+        <h2><a href="post1.html">Mercedes E200</a></h2>
+        <p class="tag">Luxury Sedan</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Post 2 -->
+  <!-- TESLA -->
   <div class="post" data-category="electric">
-    <img src="images/car2.jpg">
-    <h2><a href="post2.html">Tesla Model 3 Review</a></h2>
-    <p class="tag">Electric Vehicle</p>
+    <div class="card">
+      <img src="images/car2.jpg">
+      <div class="card-content">
+        <h2><a href="post2.html">Tesla Model 3</a></h2>
+        <p class="tag">Electric Car</p>
+      </div>
+    </div>
   </div>
 
 </div>
 
-<!-- Filter Script -->
 <script>
 function filterPosts(category) {
   let posts = document.querySelectorAll('.post');
