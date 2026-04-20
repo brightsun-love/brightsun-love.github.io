@@ -8,130 +8,122 @@
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial;
       background: #fff;
       color: #111;
+      scroll-behavior: smooth;
     }
 
-    header {
+    /* HERO */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      font-size: 44px;
-      padding: 60px 20px 30px;
+      font-size: 48px;
       letter-spacing: 4px;
       font-family: "Times New Roman", serif;
     }
 
-    .container {
+    /* SECTION */
+    .section {
       max-width: 900px;
-      margin: auto;
+      margin: 120px auto;
       padding: 20px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
-    .card {
-      text-decoration: none;
-      color: #111;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid #eee;
-      transition: all 0.6s ease;
+      text-align: center;
       opacity: 0;
-      transform: translateY(40px) scale(0.98);
+      transform: translateY(40px);
+      transition: all 0.8s ease;
     }
 
-    .card.show {
+    .section.show {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
     }
 
-    .card:hover {
-      transform: scale(1.015);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-    }
-
-    .card img {
+    .section img {
       width: 100%;
-      height: 320px;
+      height: 420px;
       object-fit: cover;
+      border-radius: 20px;
+      margin-top: 20px;
       transition: transform 0.6s ease;
     }
 
-    .card:hover img {
-      transform: scale(1.03);
+    .section img:hover {
+      transform: scale(1.02);
     }
 
-    .card-content {
-      padding: 25px;
-      text-align: center;
-    }
-
-    .card-content h2 {
-      margin: 0;
-      font-size: 26px;
+    .section h2 {
+      font-size: 32px;
+      margin-top: 20px;
       font-weight: 500;
-      letter-spacing: 0.5px;
     }
 
-    .tag {
-      font-size: 14px;
-      color: #777;
-      margin-top: 8px;
+    .section p {
+      color: #666;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
     }
 
     /* MOBILE */
     @media (max-width: 768px) {
-      header {
+      .hero {
         font-size: 32px;
-        padding: 40px 10px 20px;
       }
 
-      .card img {
-        height: 220px;
+      .section img {
+        height: 260px;
       }
 
-      .card-content h2 {
-        font-size: 22px;
+      .section h2 {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
 
-<header>CARLOG</header>
-
-<div class="container">
-
-  <a href="mercedes.html" class="card">
-    <img src="images/car1.jpg">
-    <div class="card-content">
-      <h2>Mercedes E200</h2>
-      <div class="tag">Luxury Sedan</div>
-    </div>
-  </a>
-
-  <a href="tesla.html" class="card">
-    <img src="tesla-model-3.jpg">
-    <div class="card-content">
-      <h2>Tesla Model 3</h2>
-      <div class="tag">Electric Car</div>
-    </div>
-  </a>
-
+<!-- HERO -->
+<div class="hero">
+  CARLOG
 </div>
 
-<script>
-const cards = document.querySelectorAll('.card');
+<!-- MERCEDES -->
+<a href="mercedes.html">
+  <div class="section">
+    <img src="images/car1.jpg">
+    <h2>Mercedes E200</h2>
+    <p>Luxury redefined. Comfort above everything.</p>
+  </div>
+</a>
 
-function revealCards() {
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 80) {
-      card.classList.add('show');
+<!-- TESLA -->
+<a href="tesla.html">
+  <div class="section">
+    <img src="tesla-model-3.jpg">
+    <h2>Tesla Model 3</h2>
+    <p>The future of driving. Electric and intelligent.</p>
+  </div>
+</a>
+
+<script>
+const sections = document.querySelectorAll('.section');
+
+function revealSections() {
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      section.classList.add('show');
     }
   });
 }
 
-window.addEventListener('scroll', revealCards);
-window.addEventListener('load', revealCards);
+window.addEventListener('scroll', revealSections);
+window.addEventListener('load', revealSections);
 </script>
 
 </body>
