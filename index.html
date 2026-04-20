@@ -13,73 +13,135 @@
 
     /* HERO */
     .hero {
-      height: 80vh;
+      height: 90vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      background: radial-gradient(circle, #f5f5f7, #ffffff);
+      position: relative;
+      overflow: hidden;
+
+      background: radial-gradient(circle at center, #f5f5f7, #ffffff);
     }
 
+    /* subtle glow */
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(0,0,0,0.05);
+      filter: blur(120px);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    /* BRAND TITLE */
     .hero h1 {
-      font-size: 52px;
-      letter-spacing: 5px;
+      position: relative;
+      font-size: 64px;
+      letter-spacing: 8px;
       font-family: "Times New Roman", serif;
       margin: 0;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    /* brand underline */
+    .hero h1::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: #111;
+      margin: 15px auto 0;
+      opacity: 0.6;
     }
 
     .hero p {
-      margin-top: 12px;
-      font-size: 16px;
+      position: relative;
+      margin-top: 20px;
+      font-size: 18px;
       color: #666;
+      max-width: 500px;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 1.5s ease forwards;
     }
 
-    /* SECTION */
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* SECTIONS */
     .section {
-      max-width: 850px;
-      margin: 100px auto;
+      max-width: 900px;
+      margin: 120px auto;
       padding: 20px;
       text-align: center;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1s ease;
+    }
+
+    .section.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section img {
       width: 100%;
-      height: 380px;
+      height: 420px;
       object-fit: cover;
-      border-radius: 16px;
+      border-radius: 20px;
+      transition: transform 0.6s ease;
+    }
+
+    .section img:hover {
+      transform: scale(1.02);
     }
 
     .section h2 {
-      margin-top: 20px;
-      font-size: 28px;
+      font-size: 34px;
+      margin-top: 25px;
       font-weight: 500;
     }
 
     .section p {
       color: #666;
-      margin-top: 8px;
-      font-size: 15px;
+      font-size: 16px;
+      margin-top: 10px;
     }
 
     a {
       text-decoration: none;
       color: inherit;
-      display: block;
     }
 
     /* MOBILE */
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 34px;
+        font-size: 40px;
+        letter-spacing: 4px;
+      }
+
+      .hero p {
+        font-size: 16px;
+        padding: 0 15px;
       }
 
       .section img {
-        height: 240px;
+        height: 260px;
       }
 
       .section h2 {
-        font-size: 22px;
+        font-size: 24px;
       }
     }
   </style>
@@ -89,7 +151,7 @@
 <!-- HERO -->
 <div class="hero">
   <h1>CARLOG</h1>
-  <p>Cars. Design. Experience.</p>
+  <p>Discover cars. Experience design. Explore performance.</p>
 </div>
 
 <!-- MERCEDES -->
@@ -97,7 +159,7 @@
   <div class="section">
     <img src="images/car1.jpg">
     <h2>Mercedes E200</h2>
-    <p>Luxury sedan focused on comfort and refinement.</p>
+    <p>Luxury redefined. Comfort above everything.</p>
   </div>
 </a>
 
@@ -106,9 +168,25 @@
   <div class="section">
     <img src="tesla-model-3.jpg">
     <h2>Tesla Model 3</h2>
-    <p>Electric performance with a technology-first approach.</p>
+    <p>The future of driving. Electric and intelligent.</p>
   </div>
 </a>
+
+<script>
+const sections = document.querySelectorAll('.section');
+
+function revealSections() {
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      section.classList.add('show');
+    }
+  });
+}
+
+window.addEventListener('scroll', revealSections);
+window.addEventListener('load', revealSections);
+</script>
 
 </body>
 </html>
