@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Car Blog</title>
+  <title>DriveCraft</title>
   <style>
     body {
-      font-family: -apple-system, Arial;
+      font-family: -apple-system, BlinkMacSystemFont, Arial;
       margin: 0;
       background: #ffffff;
       color: #111;
     }
 
     header {
-      padding: 20px;
+      padding: 30px;
       text-align: center;
-      border-bottom: 1px solid #eee;
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 600;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #eee;
     }
 
     .container {
@@ -25,46 +26,55 @@
     }
 
     .post {
-      border-bottom: 1px solid #eee;
-      padding: 20px 0;
+      margin-bottom: 30px;
+      transition: transform 0.2s ease;
+    }
+
+    .post:hover {
+      transform: scale(1.02);
     }
 
     .post img {
       width: 100%;
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     .post h2 {
-      margin: 10px 0;
+      margin: 12px 0 5px;
+      font-size: 22px;
     }
 
-    a {
+    .post h2 a {
       text-decoration: none;
-      color: black;
+      color: #111;
+    }
+
+    .post h2 a:hover {
+      color: #555;
     }
 
     .tag {
-      font-size: 12px;
+      font-size: 13px;
       color: gray;
     }
   </style>
 </head>
 <body>
 
-<header>🚗 Car Blog</header>
+<header>DriveCraft</header>
 
 <div class="container">
 
   <div class="post">
     <img src="images/car1.jpg">
-    <h2><a href="post1.html">BMW M4 Review</a></h2>
-    <p class="tag">Sports Car</p>
+    <h2><a href="post1.html">Mercedes E200 Review</a></h2>
+    <p class="tag">Luxury Sedan</p>
   </div>
 
   <div class="post">
     <img src="images/car2.jpg">
-    <h2><a href="post2.html">Tesla Model 3</a></h2>
-    <p class="tag">Electric</p>
+    <h2><a href="post2.html">Tesla Model 3 Review</a></h2>
+    <p class="tag">Electric Car</p>
   </div>
 
 </div>
