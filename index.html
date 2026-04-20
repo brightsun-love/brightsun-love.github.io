@@ -5,47 +5,63 @@
   <style>
     body {
       margin: 0;
-      text-align: center;
-      background: #fff;
+      background: #ffffff;
       color: #111;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial;
+      text-align: center;
     }
 
+    /* Header */
     header {
       font-family: "Times New Roman", serif;
       font-size: 42px;
-      padding: 30px;
-      letter-spacing: 4px;
-      border-bottom: 1px solid #eee;
+      padding: 40px 20px 20px;
+      letter-spacing: 3px;
     }
 
+    /* Menu */
     .menu {
-      margin-top: 30px;
+      margin-top: 20px;
     }
 
     .menu button {
-      font-family: Georgia, serif;
-      font-size: 18px;
-      margin: 10px;
-      padding: 12px 25px;
+      font-size: 16px;
+      margin: 8px;
+      padding: 10px 22px;
       border-radius: 30px;
-      border: 1px solid #ccc;
-      background: white;
+      border: 1px solid #ddd;
+      background: #fff;
       cursor: pointer;
+      transition: all 0.25s ease;
     }
 
     .menu button:hover {
-      background: black;
-      color: white;
+      background: #111;
+      color: #fff;
+      border-color: #111;
     }
 
+    /* Content */
     .content {
-      margin-top: 40px;
+      margin-top: 60px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .content.show {
+      opacity: 1;
+    }
+
+    .content h2 {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 20px;
     }
 
     .content img {
-      width: 60%;
-      max-width: 600px;
-      border-radius: 12px;
+      width: 70%;
+      max-width: 700px;
+      border-radius: 14px;
     }
   </style>
 </head>
@@ -62,17 +78,29 @@
 
 <script>
 function showLuxury() {
-  document.getElementById("contentArea").innerHTML = `
-    <h2>Mercedes E200</h2>
-    <img src="images/car1.jpg">
-  `;
+  let area = document.getElementById("contentArea");
+  area.classList.remove("show");
+
+  setTimeout(() => {
+    area.innerHTML = `
+      <h2>Mercedes E200</h2>
+      <img src="images/car1.jpg">
+    `;
+    area.classList.add("show");
+  }, 100);
 }
 
 function showElectric() {
-  document.getElementById("contentArea").innerHTML = `
-    <h2>Tesla Model 3</h2>
-    <img src="tesla-model-3.jpg">
-  `;
+  let area = document.getElementById("contentArea");
+  area.classList.remove("show");
+
+  setTimeout(() => {
+    area.innerHTML = `
+      <h2>Tesla Model 3</h2>
+      <img src="tesla-model-3.jpg">
+    `;
+    area.classList.add("show");
+  }, 100);
 }
 </script>
 
