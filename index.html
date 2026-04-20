@@ -18,7 +18,6 @@
       font-family: "Times New Roman", serif;
     }
 
-    /* FILTER BUTTONS */
     .filters {
       text-align: center;
       margin-bottom: 20px;
@@ -101,14 +100,13 @@
 
 <header>CARLOG</header>
 
-<!-- FILTERS -->
 <div class="filters">
   <button onclick="filterCars('all')">All</button>
   <button onclick="filterCars('luxury')">Luxury</button>
   <button onclick="filterCars('electric')">Electric</button>
 </div>
 
-<div class="container" id="carContainer">
+<div class="container">
 
   <!-- MERCEDES -->
   <a href="mercedes.html" class="card" data-category="luxury">
@@ -128,10 +126,18 @@
     </div>
   </a>
 
+  <!-- BMW -->
+  <a href="bmw.html" class="card" data-category="luxury">
+    <img src="bmw.jpg">
+    <div class="card-content">
+      <h2>BMW 5 Series</h2>
+      <div class="tag">Luxury Sedan</div>
+    </div>
+  </a>
+
 </div>
 
 <script>
-/* FILTER SYSTEM */
 function filterCars(category) {
   let cards = document.querySelectorAll('.card');
 
@@ -144,7 +150,6 @@ function filterCars(category) {
   });
 }
 
-/* ANIMATION */
 const cards = document.querySelectorAll('.card');
 
 function revealCards() {
