@@ -1,49 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Blog</title>
+  <title>Car Blog</title>
   <style>
     body {
-      font-family: Arial;
-      background: #f4f4f4;
+      font-family: -apple-system, Arial;
       margin: 0;
+      background: #ffffff;
+      color: #111;
     }
+
     header {
-      background: black;
-      color: white;
-      padding: 15px;
+      padding: 20px;
       text-align: center;
+      border-bottom: 1px solid #eee;
+      font-size: 24px;
+      font-weight: 600;
     }
+
     .container {
+      max-width: 900px;
+      margin: auto;
       padding: 20px;
     }
+
     .post {
-      background: white;
-      padding: 15px;
-      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding: 20px 0;
     }
+
+    .post img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .post h2 {
+      margin: 10px 0;
+    }
+
     a {
       text-decoration: none;
       color: black;
+    }
+
+    .tag {
+      font-size: 12px;
+      color: gray;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>My Blog</h1>
-</header>
+<header>🚗 Car Blog</header>
 
 <div class="container">
 
   <div class="post">
-    <h2><a href="post1.html">First Post</a></h2>
-    <p>This is my first blog post.</p>
+    <img src="images/car1.jpg">
+    <h2><a href="post1.html">BMW M4 Review</a></h2>
+    <p class="tag">Sports Car</p>
   </div>
 
   <div class="post">
-    <h2><a href="post2.html">Second Post</a></h2>
-    <p>This is another article.</p>
+    <img src="images/car2.jpg">
+    <h2><a href="post2.html">Tesla Model 3</a></h2>
+    <p class="tag">Electric</p>
   </div>
 
 </div>
