@@ -1,32 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tesla Model 3</title>
+  <title>CARLOG</title>
   <style>
     body {
-      font-family: -apple-system;
       margin: 0;
-      padding: 40px;
-      max-width: 800px;
-      margin: auto;
+      background: #ffffff;
+      color: #111;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial;
+      text-align: center;
     }
-    img {
-      width: 100%;
-      border-radius: 12px;
+
+    header {
+      font-family: "Times New Roman", serif;
+      font-size: 42px;
+      padding: 40px 20px 20px;
+      letter-spacing: 3px;
+    }
+
+    .menu {
+      margin-top: 20px;
+    }
+
+    .menu button {
+      font-size: 16px;
+      margin: 8px;
+      padding: 10px 22px;
+      border-radius: 30px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .menu button:hover {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+
+    .content {
+      margin-top: 60px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .content.show {
+      opacity: 1;
+    }
+
+    .content h2 {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .content h2 a {
+      text-decoration: none;
+      color: #111;
+    }
+
+    .content h2 a:hover {
+      color: #555;
+    }
+
+    .content img {
+      width: 70%;
+      max-width: 700px;
+      border-radius: 14px;
     }
   </style>
 </head>
 <body>
 
-<h1>Tesla Model 3</h1>
-<img src="tesla-model-3.jpg">
+<header>CARLOG</header>
 
-<p>
-Tesla Model 3 is an electric vehicle known for performance, efficiency,
-and futuristic technology. It offers autopilot features and a minimalist design.
-</p>
+<div class="menu">
+  <button onclick="showLuxury()">Luxury</button>
+  <button onclick="showElectric()">Electric</button>
+</div>
 
-<a href="index.html">← Back</a>
+<div class="content" id="contentArea"></div>
+
+<script>
+function showLuxury() {
+  let area = document.getElementById("contentArea");
+  area.classList.remove("show");
+
+  setTimeout(() => {
+    area.innerHTML = `
+      <h2><a href="mercedes.html">Mercedes E200</a></h2>
+      <img src="images/car1.jpg">
+    `;
+    area.classList.add("show");
+  }, 100);
+}
+
+function showElectric() {
+  let area = document.getElementById("contentArea");
+  area.classList.remove("show");
+
+  setTimeout(() => {
+    area.innerHTML = `
+      <h2><a href="tesla.html">Tesla Model 3</a></h2>
+      <img src="tesla-model-3.jpg">
+    `;
+    area.classList.add("show");
+  }, 100);
+}
+</script>
 
 </body>
 </html>
