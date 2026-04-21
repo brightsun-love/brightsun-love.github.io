@@ -10,68 +10,77 @@
       color: #111;
     }
 
+    /* HERO (fixed premium feel) */
     .hero {
-      height: 60vh;
+      height: 70vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle, #f5f5f7, #ffffff);
+      background: radial-gradient(circle at center, #f5f5f7, #ffffff);
       text-align: center;
     }
 
     .hero h1 {
-      font-size: 50px;
-      letter-spacing: 5px;
+      font-size: 60px;
+      letter-spacing: 6px;
       font-family: "Times New Roman", serif;
       margin: 0;
+      font-weight: 600;
     }
 
     .hero p {
       color: #666;
-      margin-top: 10px;
+      margin-top: 12px;
+      font-size: 16px;
     }
 
+    /* GRID */
     .grid {
       max-width: 1100px;
-      margin: 60px auto;
+      margin: 80px auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 25px;
+      gap: 30px;
       padding: 20px;
     }
 
+    /* CARD */
     .card {
-      height: 220px;
-      border-radius: 20px;
-      overflow: hidden;
       position: relative;
+      overflow: hidden;
+      border-radius: 20px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      height: 250px; /* controlled height */
     }
 
-    .card:hover {
-      transform: scale(1.03);
-    }
-
+    /* IMAGE FIXED RATIO */
     .card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.75);
-      transition: 0.4s;
+      transform: scale(1.05);
+      transition: transform 0.5s ease;
     }
 
     .card:hover img {
-      filter: brightness(0.6);
+      transform: scale(1.1);
     }
 
+    /* OVERLAY (important for readability) */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    }
+
+    /* TEXT */
     .card h2 {
       position: absolute;
       bottom: 20px;
       left: 20px;
       color: white;
-      font-size: 26px;
+      font-size: 28px;
       margin: 0;
       font-weight: 500;
       letter-spacing: 1px;
@@ -82,9 +91,14 @@
       color: inherit;
     }
 
+    /* MOBILE */
     @media (max-width: 768px) {
       .grid {
         grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 36px;
       }
     }
   </style>
@@ -101,6 +115,7 @@
   <a href="sedan.html">
     <div class="card">
       <img src="sedan.jpg">
+      <div class="overlay"></div>
       <h2>Sedan</h2>
     </div>
   </a>
@@ -108,6 +123,7 @@
   <a href="suv.html">
     <div class="card">
       <img src="suv.jpg">
+      <div class="overlay"></div>
       <h2>SUV</h2>
     </div>
   </a>
@@ -115,6 +131,7 @@
   <a href="hatchback.html">
     <div class="card">
       <img src="hatchback.jpg">
+      <div class="overlay"></div>
       <h2>Hatchback</h2>
     </div>
   </a>
@@ -122,6 +139,7 @@
   <a href="hybrid.html">
     <div class="card">
       <img src="hybrid.jpg">
+      <div class="overlay"></div>
       <h2>Hybrid</h2>
     </div>
   </a>
@@ -129,6 +147,7 @@
   <a href="ev.html">
     <div class="card">
       <img src="ev.jpg">
+      <div class="overlay"></div>
       <h2>EV</h2>
     </div>
   </a>
@@ -136,6 +155,7 @@
   <a href="mpv.html">
     <div class="card">
       <img src="mpv.jpg">
+      <div class="overlay"></div>
       <h2>MPV</h2>
     </div>
   </a>
@@ -143,6 +163,7 @@
   <a href="best.html">
     <div class="card">
       <img src="bestcar.jpg">
+      <div class="overlay"></div>
       <h2>Best of All Time</h2>
     </div>
   </a>
