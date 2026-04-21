@@ -8,44 +8,41 @@
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial;
       background: #fff;
       color: #111;
-      scroll-behavior: smooth;
     }
 
-    /* HERO */
+    /* HERO (KEEP PREMIUM) */
     .hero {
-      height: 100vh;
+      height: 80vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       background: radial-gradient(circle, #f5f5f7, #ffffff);
       text-align: center;
-      overflow: hidden;
     }
 
-    /* PREMIUM TITLE */
     .hero h1 {
-      font-size: 78px;
-      letter-spacing: 10px;
+      font-size: 72px;
+      letter-spacing: 8px;
       font-family: "Times New Roman", serif;
       margin: 0;
       opacity: 0;
-      transform: translateY(40px) scale(0.98);
-      animation: heroReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      transform: translateY(30px) scale(0.98);
+      animation: heroReveal 1.4s cubic-bezier(0.22,1,0.36,1) forwards;
     }
 
     .hero h1::after {
       content: "";
       display: block;
-      width: 80px;
+      width: 70px;
       height: 2px;
       background: #111;
-      margin: 18px auto 0;
+      margin: 16px auto 0;
       opacity: 0.4;
     }
 
     .hero p {
-      margin-top: 20px;
+      margin-top: 18px;
       color: #666;
       font-size: 18px;
       opacity: 0;
@@ -60,76 +57,82 @@
       }
     }
 
-    /* SECTION */
-    .section {
-      height: 100vh;
+    /* GRID */
+    .grid {
+      max-width: 1100px;
+      margin: 100px auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    /* CARD */
+    .card {
       position: relative;
+      border-radius: 22px;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      cursor: pointer;
+      aspect-ratio: 16/9; /* PERFECT RATIO */
+      transform: translateY(30px);
+      opacity: 0;
+      transition: all 0.8s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .card.show {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     /* IMAGE */
-    .section img {
-      position: absolute;
+    .card img {
       width: 100%;
-      height: 120%;
+      height: 100%;
       object-fit: cover;
-      transform: translateY(0);
-      transition: transform 0.2s linear;
+      transition: transform 0.6s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
     }
 
     /* OVERLAY */
     .overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.4);
+      background: linear-gradient(to top, rgba(0,0,0,0.45), transparent);
     }
 
     /* TEXT */
-    .content {
-      position: relative;
-      text-align: center;
+    .card h2 {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
       color: white;
-      opacity: 0;
-      transform: translateY(60px);
-      transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .content.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .content h2 {
-      font-size: 52px;
+      font-size: 30px;
       margin: 0;
       font-weight: 500;
-      letter-spacing: 2px;
-    }
-
-    .content p {
-      margin-top: 12px;
-      font-size: 17px;
-      opacity: 0.85;
+      letter-spacing: 1px;
     }
 
     a {
       text-decoration: none;
       color: inherit;
-      display: block;
     }
 
     /* MOBILE */
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 42px;
-        letter-spacing: 4px;
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
       }
 
-      .content h2 {
-        font-size: 30px;
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .card h2 {
+        font-size: 24px;
       }
     }
   </style>
@@ -139,114 +142,84 @@
 <!-- HERO -->
 <div class="hero">
   <h1>CARLOG</h1>
-  <p>Explore cars through design and experience</p>
+  <p>Explore cars by category</p>
 </div>
 
-<!-- SEDAN -->
-<a href="sedan.html">
-  <div class="section">
-    <img src="sedan.jpg">
-    <div class="overlay"></div>
-    <div class="content">
+<!-- GRID -->
+<div class="grid">
+
+  <a href="sedan.html">
+    <div class="card">
+      <img src="sedan.jpg">
+      <div class="overlay"></div>
       <h2>Sedan</h2>
-      <p>Comfort. Luxury. Balance.</p>
     </div>
-  </div>
-</a>
+  </a>
 
-<!-- SUV -->
-<a href="suv.html">
-  <div class="section">
-    <img src="suv.jpg">
-    <div class="overlay"></div>
-    <div class="content">
+  <a href="suv.html">
+    <div class="card">
+      <img src="suv.jpg">
+      <div class="overlay"></div>
       <h2>SUV</h2>
-      <p>Power. Space. Versatility.</p>
     </div>
-  </div>
-</a>
+  </a>
 
-<!-- HATCHBACK -->
-<a href="hatchback.html">
-  <div class="section">
-    <img src="hatchback.jpg">
-    <div class="overlay"></div>
-    <div class="content">
+  <a href="hatchback.html">
+    <div class="card">
+      <img src="hatchback.jpg">
+      <div class="overlay"></div>
       <h2>Hatchback</h2>
-      <p>Compact. Smart. Efficient.</p>
     </div>
-  </div>
-</a>
+  </a>
 
-<!-- HYBRID -->
-<a href="hybrid.html">
-  <div class="section">
-    <img src="hybrid.jpg">
-    <div class="overlay"></div>
-    <div class="content">
+  <a href="hybrid.html">
+    <div class="card">
+      <img src="hybrid.jpg">
+      <div class="overlay"></div>
       <h2>Hybrid</h2>
-      <p>Efficiency meets performance.</p>
     </div>
-  </div>
-</a>
+  </a>
 
-<!-- EV -->
-<a href="ev.html">
-  <div class="section">
-    <img src="ev.jpg">
-    <div class="overlay"></div>
-    <div class="content">
+  <a href="ev.html">
+    <div class="card">
+      <img src="ev.jpg">
+      <div class="overlay"></div>
       <h2>EV</h2>
-      <p>The future of mobility.</p>
     </div>
-  </div>
-</a>
+  </a>
 
-<!-- MPV -->
-<a href="mpv.html">
-  <div class="section">
-    <img src="mpv.jpg">
-    <div class="overlay"></div>
-    <div class="content">
+  <a href="mpv.html">
+    <div class="card">
+      <img src="mpv.jpg">
+      <div class="overlay"></div>
       <h2>MPV</h2>
-      <p>Family. Comfort. Space.</p>
     </div>
-  </div>
-</a>
+  </a>
 
-<!-- BEST -->
-<a href="best.html">
-  <div class="section">
-    <img src="bestcar.jpg">
-    <div class="overlay"></div>
-    <div class="content">
+  <a href="best.html">
+    <div class="card">
+      <img src="bestcar.jpg">
+      <div class="overlay"></div>
       <h2>Best of All Time</h2>
-      <p>Legendary machines.</p>
     </div>
-  </div>
-</a>
+  </a>
+
+</div>
 
 <script>
-const contents = document.querySelectorAll('.content');
-const images = document.querySelectorAll('.section img');
+const cards = document.querySelectorAll('.card');
 
-function animateOnScroll() {
-  contents.forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 120) {
-      el.classList.add('show');
+function revealCards() {
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      card.classList.add('show');
     }
-  });
-
-  images.forEach(img => {
-    const rect = img.parentElement.getBoundingClientRect();
-    const offset = rect.top * 0.12;
-    img.style.transform = `translateY(${offset}px)`;
   });
 }
 
-window.addEventListener('scroll', animateOnScroll);
-window.addEventListener('load', animateOnScroll);
+window.addEventListener('scroll', revealCards);
+window.addEventListener('load', revealCards);
 </script>
 
 </body>
