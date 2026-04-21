@@ -6,13 +6,13 @@
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial;
-      background: #fff;
+      background: #ffffff;
       color: #111;
     }
 
-    /* HERO (KEEP PREMIUM) */
+    /* HERO */
     .hero {
-      height: 80vh;
+      height: 75vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -22,97 +22,69 @@
     }
 
     .hero h1 {
-      font-size: 72px;
-      letter-spacing: 8px;
+      font-size: 68px;
+      letter-spacing: 7px;
       font-family: "Times New Roman", serif;
       margin: 0;
       opacity: 0;
-      transform: translateY(30px) scale(0.98);
-      animation: heroReveal 1.4s cubic-bezier(0.22,1,0.36,1) forwards;
-    }
-
-    .hero h1::after {
-      content: "";
-      display: block;
-      width: 70px;
-      height: 2px;
-      background: #111;
-      margin: 16px auto 0;
-      opacity: 0.4;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease forwards;
     }
 
     .hero p {
-      margin-top: 18px;
+      margin-top: 15px;
       color: #666;
-      font-size: 18px;
+      font-size: 17px;
       opacity: 0;
-      transform: translateY(20px);
-      animation: heroReveal 1.8s ease forwards;
+      animation: fadeUp 1.4s ease forwards;
     }
 
-    @keyframes heroReveal {
+    @keyframes fadeUp {
       to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
       }
     }
 
     /* GRID */
     .grid {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 100px auto;
       padding: 20px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 35px;
     }
 
-    /* CARD */
+    /* CARD BOX */
     .card {
-      position: relative;
-      border-radius: 22px;
+      background: #ffffff;
+      border-radius: 18px;
       overflow: hidden;
-      cursor: pointer;
-      aspect-ratio: 16/9; /* PERFECT RATIO */
-      transform: translateY(30px);
-      opacity: 0;
-      transition: all 0.8s cubic-bezier(0.22,1,0.36,1);
+      border: 1px solid #eee;
+      transition: all 0.3s ease;
     }
 
-    .card.show {
-      transform: translateY(0);
-      opacity: 1;
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
     }
 
     /* IMAGE */
     .card img {
       width: 100%;
-      height: 100%;
+      height: 220px;
       object-fit: cover;
-      transition: transform 0.6s ease;
     }
 
-    .card:hover img {
-      transform: scale(1.05);
-    }
-
-    /* OVERLAY */
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.45), transparent);
-    }
-
-    /* TEXT */
+    /* TEXT BOX */
     .card h2 {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      color: white;
-      font-size: 30px;
-      margin: 0;
+      font-size: 22px;
       font-weight: 500;
-      letter-spacing: 1px;
+      text-align: center;
+      padding: 18px;
+      margin: 0;
+      letter-spacing: 0.5px;
     }
 
     a {
@@ -124,15 +96,10 @@
     @media (max-width: 768px) {
       .grid {
         grid-template-columns: 1fr;
-        gap: 25px;
       }
 
       .hero h1 {
-        font-size: 42px;
-      }
-
-      .card h2 {
-        font-size: 24px;
+        font-size: 40px;
       }
     }
   </style>
@@ -151,7 +118,6 @@
   <a href="sedan.html">
     <div class="card">
       <img src="sedan.jpg">
-      <div class="overlay"></div>
       <h2>Sedan</h2>
     </div>
   </a>
@@ -159,7 +125,6 @@
   <a href="suv.html">
     <div class="card">
       <img src="suv.jpg">
-      <div class="overlay"></div>
       <h2>SUV</h2>
     </div>
   </a>
@@ -167,7 +132,6 @@
   <a href="hatchback.html">
     <div class="card">
       <img src="hatchback.jpg">
-      <div class="overlay"></div>
       <h2>Hatchback</h2>
     </div>
   </a>
@@ -175,7 +139,6 @@
   <a href="hybrid.html">
     <div class="card">
       <img src="hybrid.jpg">
-      <div class="overlay"></div>
       <h2>Hybrid</h2>
     </div>
   </a>
@@ -183,7 +146,6 @@
   <a href="ev.html">
     <div class="card">
       <img src="ev.jpg">
-      <div class="overlay"></div>
       <h2>EV</h2>
     </div>
   </a>
@@ -191,7 +153,6 @@
   <a href="mpv.html">
     <div class="card">
       <img src="mpv.jpg">
-      <div class="overlay"></div>
       <h2>MPV</h2>
     </div>
   </a>
@@ -199,28 +160,11 @@
   <a href="best.html">
     <div class="card">
       <img src="bestcar.jpg">
-      <div class="overlay"></div>
       <h2>Best of All Time</h2>
     </div>
   </a>
 
 </div>
-
-<script>
-const cards = document.querySelectorAll('.card');
-
-function revealCards() {
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 100) {
-      card.classList.add('show');
-    }
-  });
-}
-
-window.addEventListener('scroll', revealCards);
-window.addEventListener('load', revealCards);
-</script>
 
 </body>
 </html>
