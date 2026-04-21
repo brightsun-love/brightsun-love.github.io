@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sedan Cars | CARLOG</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial;
+      background: #fff;
+      color: #111;
+    }
+
+    /* HEADER */
+    .header {
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle, #f5f5f7, #ffffff);
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      letter-spacing: 3px;
+      font-family: "Times New Roman", serif;
+      margin: 0;
+    }
+
+    .header p {
+      margin-top: 10px;
+      color: #666;
+      font-size: 16px;
+    }
+
+    /* GRID */
+    .grid {
+      max-width: 1000px;
+      margin: 80px auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    /* CARD */
+    .card {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid #eee;
+      transition: all 0.3s ease;
+      aspect-ratio: 1/1;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    /* IMAGE */
+    .card img {
+      width: 100%;
+      height: 75%;
+      object-fit: cover;
+    }
+
+    /* TEXT */
+    .card h2 {
+      text-align: center;
+      padding: 15px;
+      margin: 0;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* BACK BUTTON */
+    .back {
+      display: block;
+      text-align: center;
+      margin: 40px 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>SEDAN</h1>
+  <p>Comfort, luxury and everyday performance</p>
+</div>
+
+<!-- GRID -->
+<div class="grid">
+
+  <!-- MERCEDES -->
+  <a href="mercedes.html">
+    <div class="card">
+      <img src="sedan.jpg">
+      <h2>Mercedes E200</h2>
+    </div>
+  </a>
+
+  <!-- BMW -->
+  <a href="bmw.html">
+    <div class="card">
+      <img src="bmw.jpg">
+      <h2>BMW 5 Series</h2>
+    </div>
+  </a>
+
+  <!-- AUDI -->
+  <a href="audi.html">
+    <div class="card">
+      <img src="audi.jpg">
+      <h2>Audi A6</h2>
+    </div>
+  </a>
+
+  <!-- HONDA -->
+  <a href="honda.html">
+    <div class="card">
+      <img src="honda.jpg">
+      <h2>Honda City</h2>
+    </div>
+  </a>
+
+</div>
+
+<!-- BACK -->
+<a href="index.html" class="back">← Back to Home</a>
+
+</body>
+</html>
