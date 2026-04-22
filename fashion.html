@@ -1,114 +1,129 @@
-function runEngine() {
-
-  const input = {
-    height: get("height"),
-    bodyShape: get("bodyShape"),
-    goal: get("goal"),
-    legRatio: get("legRatio"),
-    undertone: get("undertone"),
-    contrast: get("contrast"),
-    fit: get("fit"),
-    occasion: get("occasion"),
-    climate: get("climate"),
-    style: get("style"),
-    footwear: get("footwear")
-  };
-
-  let attr = {
-    silhouette: "balanced",
-    palette: [],
-    fabric: "",
-    fit: input.fit || "regular",
-    base: "casual"
-  };
-
-  let explanation = [];
-  let avoid = [];
-
-  // PROPORTION
-  if (input.height === "short" || input.goal === "taller") {
-    attr.silhouette = "vertical";
-    explanation.push("Vertical styling creates a taller appearance");
-    avoid.push("Avoid strong color breaks");
-  }
-
-  if (input.legRatio === "short") {
-    explanation.push("Higher waist pants make legs look longer");
-  }
-
-  if (input.goal === "slimmer") {
-    attr.fit = "slim";
-    explanation.push("Slim fit reduces bulk");
-    avoid.push("Avoid baggy clothes");
-  }
-
-  // BODY
-  if (input.bodyShape === "triangle") {
-    explanation.push("Lighter top balances lower body");
-  }
-
-  if (input.bodyShape === "inverted") {
-    explanation.push("Darker top reduces upper body dominance");
-  }
-
-  if (input.bodyShape === "oval") {
-    attr.silhouette = "vertical";
-    explanation.push("Vertical lines reduce stomach focus");
-  }
-
-  // COLOR
-  if (input.undertone === "warm") {
-    attr.palette = ["beige", "olive", "brown"];
-  } else {
-    attr.palette = ["white", "grey", "black"];
-  }
-
-  // CLIMATE
-  if (input.climate === "hot") {
-    attr.fabric = "cotton / linen";
-  } else {
-    attr.fabric = "layered fabrics";
-  }
-
-  // OUTFITS
-  let outfits = [
-    {
-      name: "Best Option",
-      top: attr.palette[0] + " shirt",
-      bottom: "dark trousers",
-      shoes: input.footwear,
-      score: 50,
-      explanation: explanation,
-      avoid: avoid
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fashion Hub</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      background: #fff;
     }
-  ];
 
-  display(outfits);
-}
+    h1 {
+      text-align: center;
+    }
 
-function get(id) {
-  return document.getElementById(id).value;
-}
+    p.helper {
+      font-size: 14px;
+      color: #666;
+    }
 
-function display(outfits) {
-  let html = "<h3>Top Outfit Recommendation</h3>";
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+    }
 
-  outfits.forEach(o => {
-    html += `
-      <div style="padding:15px;border:1px solid #ccc;border-radius:10px;">
-        <h4>${o.name}</h4>
-        <p>Top: ${o.top}</p>
-        <p>Bottom: ${o.bottom}</p>
-        <p>Shoes: ${o.shoes}</p>
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+  </style>
+</head>
 
-        <p><b>Why:</b></p>
-        <ul>${o.explanation.map(e => `<li>${e}</li>`).join("")}</ul>
+<body>
 
-        <p><b>Avoid:</b></p>
-        <ul>${o.avoid.map(a => `<li>${a}</li>`).join("")}</ul>
-      </div>
-    `;
-  });
+<h1>Fashion Hub</h1>
+<p class="helper">Choose what stands out most about you (even if multiple apply)</p>
 
-  document.getElementById("result").innerHTML = html;
-}
+<select id="height">
+  <option value="">Your Height</option>
+  <option value="short">Below 165 cm</option>
+  <option value="medium">165–175 cm</option>
+  <option value="tall">Above 175 cm</option>
+</select>
+
+<select id="bodyShape">
+  <option value="">What stands out most about your body?</option>
+  <option value="rectangle">Body looks straight</option>
+  <option value="triangle">Lower body heavier</option>
+  <option value="inverted">Upper body broader</option>
+  <option value="oval">Stomach stands out</option>
+</select>
+
+<select id="goal">
+  <option value="">What do you want?</option>
+  <option value="taller">Look taller</option>
+  <option value="slimmer">Look slimmer</option>
+  <option value="broader">Look broader</option>
+  <option value="balanced">Balanced</option>
+</select>
+
+<select id="legRatio">
+  <option value="">Your body looks like</option>
+  <option value="short">Upper body longer</option>
+  <option value="balanced">Balanced</option>
+  <option value="long">Legs longer</option>
+</select>
+
+<select id="undertone">
+  <option value="">Jewelry that suits you</option>
+  <option value="warm">Gold</option>
+  <option value="cool">Silver</option>
+  <option value="neutral">Both</option>
+</select>
+
+<select id="contrast">
+  <option value="">Your look</option>
+  <option value="low">Similar tones</option>
+  <option value="medium">Slight difference</option>
+  <option value="high">High contrast</option>
+</select>
+
+<select id="fit">
+  <option value="">Your fit</option>
+  <option value="slim">Slim</option>
+  <option value="regular">Regular</option>
+  <option value="oversized">Oversized</option>
+</select>
+
+<select id="occasion">
+  <option value="">Occasion</option>
+  <option value="casual">Casual</option>
+  <option value="formal">Formal</option>
+  <option value="party">Party</option>
+</select>
+
+<select id="climate">
+  <option value="">Weather</option>
+  <option value="hot">Hot</option>
+  <option value="moderate">Moderate</option>
+  <option value="cold">Cold</option>
+</select>
+
+<select id="style">
+  <option value="">Style</option>
+  <option value="minimal">Minimal</option>
+  <option value="classic">Classic</option>
+  <option value="street">Street</option>
+</select>
+
+<select id="footwear">
+  <option value="">Shoes</option>
+  <option value="sneakers">Sneakers</option>
+  <option value="formal">Formal</option>
+  <option value="boots">Boots</option>
+</select>
+
+<button onclick="runEngine()">Get Recommendation</button>
+
+<div id="result" class="result"></div>
+
+<script src="fashion.js"></script>
+
+</body>
+</html>
