@@ -10,8 +10,7 @@ function runEngine() {
     fit: get("fit"),
     occasion: get("occasion"),
     climate: get("climate"),
-    style: get("style"),
-    styleType: get("styleType"),
+    vibe: get("vibe"),
     footwear: get("footwear")
   };
 
@@ -54,18 +53,23 @@ function runEngine() {
     ? "cotton / linen"
     : "layered fabrics";
 
-  // STYLE TYPE (NEW)
-  if (input.styleType === "traditional") {
+  // 🔥 STYLE VIBE ENGINE
+  if (input.vibe === "minimal") {
+    explanation.push("Minimal style gives clean and sharp look");
+  }
+
+  if (input.vibe === "classic") {
+    explanation.push("Classic style creates a polished appearance");
+  }
+
+  if (input.vibe === "street") {
+    explanation.push("Streetwear adds bold and trendy vibe");
+    bottom = "relaxed fit pants";
+  }
+
+  if (input.vibe === "traditional") {
     top = "traditional kurta";
     explanation.push("Traditional style suits cultural settings");
-  }
-
-  if (input.styleType === "modern") {
-    explanation.push("Modern style gives a clean Western look");
-  }
-
-  if (input.styleType === "mix") {
-    explanation.push("Mixing styles gives versatile appearance");
   }
 
   // RESULT
