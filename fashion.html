@@ -1,173 +1,198 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Fashion Hub</title>
-  <style>
-    body {
-      font-family: Arial;
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-      background: #fff;
+function runEngine() {
+
+  const input = {
+    height: get("height"),
+    bodyShape: get("bodyShape"),
+    goal: get("goal"),
+    legRatio: get("legRatio"),
+    undertone: get("undertone"),
+    contrast: get("contrast"),
+    fit: get("fit"),
+    occasion: get("occasion"),
+    climate: get("climate"),
+    style: get("style"),
+    footwear: get("footwear")
+  };
+
+  let attr = {
+    silhouette: "balanced",
+    palette: [],
+    fabric: "",
+    fit: input.fit || "regular",
+    base: "casual"
+  };
+
+  let explanation = [];
+  let avoid = [];
+
+  // 🔹 PROPORTION ENGINE (CORE)
+  if (input.height === "short" || input.goal === "taller") {
+    attr.silhouette = "vertical";
+    explanation.push("Vertical styling creates a taller appearance");
+    avoid.push("Avoid strong color breaks between top and bottom");
+  }
+
+  if (input.legRatio === "short") {
+    explanation.push("Higher waist pants help make legs look longer");
+  }
+
+  if (input.goal === "slimmer") {
+    attr.fit = "slim";
+    explanation.push("Slim fit reduces visual bulk");
+    avoid.push("Avoid oversized or baggy clothing");
+  }
+
+  if (input.goal === "broader") {
+    explanation.push("Layering and structure add visual width");
+  }
+
+  // 🔹 BODY SHAPE BALANCING
+  if (input.bodyShape === "triangle") {
+    explanation.push("Lighter top balances heavier lower body");
+    avoid.push("Avoid tight or light-colored pants");
+  }
+
+  if (input.bodyShape === "inverted") {
+    explanation.push("Darker top reduces upper body dominance");
+    avoid.push("Avoid heavy jackets with shoulder padding");
+  }
+
+  if (input.bodyShape === "oval") {
+    attr.silhouette = "vertical";
+    explanation.push("Clean vertical lines reduce focus on midsection");
+    avoid.push("Avoid tight clothing around stomach");
+  }
+
+  // 🔹 COLOR ENGINE
+  if (input.undertone === "warm") {
+    attr.palette = ["beige", "olive", "brown"];
+    explanation.push("Warm tones match your skin undertone");
+  } else {
+    attr.palette = ["white", "grey", "black"];
+    explanation.push("Neutral tones create a clean and versatile look");
+  }
+
+  if (input.contrast === "high") {
+    explanation.push("High contrast outfits match your natural features");
+  } else {
+    explanation.push("Soft color combinations create harmony");
+  }
+
+  // 🔹 CLIMATE ENGINE
+  if (input.climate === "hot") {
+    attr.fabric = "light cotton or linen";
+    explanation.push("Breathable fabrics keep you cool");
+    avoid.push("Avoid heavy fabrics like thick denim or wool");
+  } else if (input.climate === "cold") {
+    attr.fabric = "layered fabrics (jackets, wool)";
+    explanation.push("Layering helps retain warmth and structure");
+  }
+
+  // 🔹 OCCASION ENGINE
+  if (input.occasion === "formal") {
+    attr.base = "formal";
+  } else if (input.occasion === "party") {
+    attr.base = "party";
+  } else {
+    attr.base = "casual";
+  }
+
+  // 🔹 OUTFIT GENERATION (REALISTIC)
+
+  let outfits = [
+
+    // SAFE
+    {
+      name: "Safe Option",
+      top: `${attr.palette[0]} ${attr.base === "formal" ? "shirt" : "t-shirt"}`,
+      bottom: "dark slim-fit trousers",
+      shoes: input.footwear,
+      fabric: attr.fabric,
+      score: score(attr, input, "safe"),
+      explanation: explanation.slice(0, 3),
+      avoid: avoid.slice(0, 2)
+    },
+
+    // BALANCED
+    {
+      name: "Balanced Option",
+      top: `${attr.palette[1]} shirt`,
+      bottom: "neutral chinos",
+      shoes: input.footwear,
+      fabric: attr.fabric,
+      score: score(attr, input, "balanced"),
+      explanation: explanation.slice(0, 4),
+      avoid: avoid.slice(0, 3)
+    },
+
+    // BOLD
+    {
+      name: "Bold Option",
+      top: `${attr.palette[2]} statement shirt`,
+      bottom: "contrast trousers",
+      shoes: input.footwear,
+      fabric: attr.fabric,
+      score: score(attr, input, "bold"),
+      explanation: explanation,
+      avoid: avoid
     }
+  ];
 
-    h1 {
-      text-align: center;
-    }
+  outfits.sort((a, b) => b.score - a.score);
 
-    p.helper {
-      font-size: 14px;
-      color: #666;
-    }
+  display(outfits);
+}
 
-    select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-    }
+// 🔹 SCORING (IMPROVED)
+function score(attr, input, type) {
+  let score = 0;
 
-    .result {
-      margin-top: 20px;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-    }
-  </style>
-</head>
+  // Proportion (highest)
+  if (attr.silhouette === "vertical") score += 15;
 
-<body>
+  // Context
+  if (input.occasion) score += 10;
+  if (input.climate) score += 10;
 
-<h1>Fashion Hub</h1>
-<p class="helper">Choose what stands out most about you (even if multiple apply)</p>
+  // Fit
+  if (input.fit === "slim") score += 10;
 
-<!-- BODY -->
-<select id="height">
-  <option value="">Your Height</option>
-  <option value="short">Below 165 cm</option>
-  <option value="medium">165–175 cm</option>
-  <option value="tall">Above 175 cm</option>
-</select>
+  // Style match
+  if (input.style === "minimal" && type === "safe") score += 10;
+  if (input.style === "street" && type === "bold") score += 10;
 
-<select id="bodyShape">
-  <option value="">What stands out most about your body?</option>
-  <option value="rectangle">Body looks straight (shoulders & waist similar)</option>
-  <option value="triangle">Lower body (hips/legs) looks heavier</option>
-  <option value="inverted">Upper body (shoulders/chest) looks broader</option>
-  <option value="oval">Stomach area stands out more</option>
-</select>
+  // Color
+  if (attr.palette.length) score += 5;
 
-<select id="goal">
-  <option value="">What do you want to improve?</option>
-  <option value="taller">Look taller</option>
-  <option value="slimmer">Look slimmer</option>
-  <option value="broader">Look more strong/broad</option>
-  <option value="balanced">Look balanced</option>
-</select>
+  return score;
+}
 
-<select id="legRatio">
-  <option value="">Your body looks more like</option>
-  <option value="short">Upper body longer</option>
-  <option value="balanced">Balanced</option>
-  <option value="long">Legs longer</option>
-</select>
+function get(id) {
+  return document.getElementById(id).value;
+}
 
-<!-- COLOR -->
-<select id="undertone">
-  <option value="">Which jewelry looks better?</option>
-  <option value="warm">Gold looks better</option>
-  <option value="cool">Silver looks better</option>
-  <option value="neutral">Both look fine</option>
-  <option value="unknown">Not sure</option>
-</select>
+// 🔹 OUTPUT DISPLAY (UPGRADED)
+function display(outfits) {
 
-<select id="tone">
-  <option value="">Your skin tone</option>
-  <option value="light">Light</option>
-  <option value="medium">Medium</option>
-  <option value="dark">Dark</option>
-</select>
+  let html = "<h3>Top Outfit Recommendations</h3>";
 
-<select id="contrast">
-  <option value="">Your overall look</option>
-  <option value="low">Everything similar tone</option>
-  <option value="medium">Slight difference</option>
-  <option value="high">Strong contrast</option>
-</select>
+  outfits.forEach(o => {
+    html += `
+      <div style="margin-bottom:20px; padding:15px; border:1px solid #ccc; border-radius:10px;">
+        <h4>${o.name} (Score: ${o.score})</h4>
+        <p><b>Top:</b> ${o.top}</p>
+        <p><b>Bottom:</b> ${o.bottom}</p>
+        <p><b>Shoes:</b> ${o.shoes}</p>
+        <p><b>Fabric:</b> ${o.fabric}</p>
 
-<!-- STYLE -->
-<select id="silhouette">
-  <option value="">You prefer clothes that are</option>
-  <option value="structured">Tight & sharp</option>
-  <option value="balanced">Normal fit</option>
-  <option value="relaxed">Loose & relaxed</option>
-</select>
+        <p><b>Why it works:</b></p>
+        <ul>${o.explanation.map(e => `<li>${e}</li>`).join("")}</ul>
 
-<select id="fit">
-  <option value="">Your usual clothing fit</option>
-  <option value="slim">Slim fit</option>
-  <option value="regular">Regular fit</option>
-  <option value="oversized">Loose/oversized</option>
-</select>
+        <p><b>Avoid:</b></p>
+        <ul>${o.avoid.map(a => `<li>${a}</li>`).join("")}</ul>
+      </div>
+    `;
+  });
 
-<!-- CONTEXT -->
-<select id="occasion">
-  <option value="">Where will you wear this?</option>
-  <option value="casual">Daily casual</option>
-  <option value="smart">Smart casual</option>
-  <option value="formal">Formal</option>
-  <option value="party">Party</option>
-</select>
-
-<select id="climate">
-  <option value="">Your weather</option>
-  <option value="hot">Hot</option>
-  <option value="moderate">Moderate</option>
-  <option value="cold">Cold</option>
-</select>
-
-<select id="time">
-  <option value="">You go out mostly</option>
-  <option value="day">Day</option>
-  <option value="night">Night</option>
-</select>
-
-<select id="budget">
-  <option value="">Your budget</option>
-  <option value="low">Low</option>
-  <option value="medium">Medium</option>
-  <option value="high">High</option>
-</select>
-
-<!-- STYLE IDENTITY -->
-<select id="style">
-  <option value="">Which style do you like?</option>
-  <option value="minimal">Simple & clean</option>
-  <option value="classic">Classic & formal</option>
-  <option value="street">Trendy / street</option>
-  <option value="sporty">Sporty</option>
-</select>
-
-<select id="risk">
-  <option value="">Your preference</option>
-  <option value="safe">Safe</option>
-  <option value="balanced">Balanced</option>
-  <option value="bold">Bold</option>
-</select>
-
-<!-- FOOTWEAR -->
-<select id="footwear">
-  <option value="">Shoes you wear most</option>
-  <option value="sneakers">Sneakers</option>
-  <option value="formal">Formal shoes</option>
-  <option value="boots">Boots</option>
-  <option value="sandals">Sandals</option>
-</select>
-
-<button onclick="runEngine()">Get Recommendation</button>
-
-<div id="result" class="result"></div>
-
-<script src="fashion.js"></script>
-
-</body>
-</html>
+  document.getElementById("result").innerHTML = html;
+}
