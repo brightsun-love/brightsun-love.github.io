@@ -8,7 +8,7 @@ function runEngine() {
   };
 
   // =========================
-  // 🔹 ATTRIBUTE ENGINE
+  // ATTRIBUTES
   // =========================
 
   let attr = {
@@ -19,64 +19,51 @@ function runEngine() {
   let explanation = [];
   let avoid = [];
 
+  // Height logic
   if (input.height === "short" || input.goal === "taller") {
     attr.silhouette = "vertical";
-    explanation.push("Vertical styling improves height perception");
-    avoid.push("Avoid strong contrast between top and bottom");
+    explanation.push("Vertical styling makes you look taller");
+    avoid.push("Avoid strong color breaks");
   }
 
-  if (input.goal === "slimmer") {
-    explanation.push("Slim-fit clothing reduces visual bulk");
-  }
-
+  // Body logic
   if (input.bodyShape === "triangle") {
-    explanation.push("Lighter upper body balances proportions");
+    explanation.push("Lighter top balances lower body");
   }
 
   if (input.bodyShape === "inverted") {
-    explanation.push("Darker tops reduce upper body dominance");
+    explanation.push("Darker top balances upper body");
   }
 
   if (input.bodyShape === "oval") {
-    explanation.push("Clean vertical lines reduce focus on midsection");
+    explanation.push("Avoid tight clothing around stomach");
   }
 
   // =========================
-  // 🔹 DATA SET (EXPANDED)
+  // DATA
   // =========================
 
   const tops = {
-    minimal: ["Oxford shirt", "plain t-shirt", "polo shirt"],
-    classic: ["formal shirt", "linen shirt", "blazer with shirt"],
-    street: ["oversized t-shirt", "hoodie", "graphic tee"],
-    traditional: ["kurta", "embroidered kurta"]
+    minimal: ["plain t-shirt", "Oxford shirt"],
+    classic: ["formal shirt", "linen shirt"],
+    street: ["oversized t-shirt", "hoodie"],
+    traditional: ["kurta"]
   };
 
   const bottoms = {
     minimal: ["slim-fit chinos", "dark jeans"],
-    classic: ["tailored trousers", "formal pants"],
-    street: ["cargo pants", "relaxed jeans"],
-    traditional: ["churidar", "traditional trousers"]
-  };
-
-  const shoesMap = {
-    sneakers: "minimal sneakers",
-    formal: "black formal shoes",
-    boots: "leather boots"
+    classic: ["tailored trousers"],
+    street: ["cargo pants"],
+    traditional: ["churidar"]
   };
 
   // =========================
-  // 🔹 CONTROLLED VARIATION
+  // GENERATOR
   // =========================
 
   function pick(arr, seed) {
-    if (!arr) return "";
     return arr[seed % arr.length];
   }
-
-  // =========================
-  // 🔹 OUTFIT GENERATION
-  // =========================
 
   function generate(type, seed) {
 
@@ -86,7 +73,7 @@ function runEngine() {
       name: type,
       top: "",
       bottom: "",
-      shoes: shoesMap[input.footwear] || "clean sneakers",
+      shoes: "clean sneakers",
       explanation: explanation,
       avoid: avoid,
       score: 0
@@ -95,23 +82,15 @@ function runEngine() {
     let topOptions = tops[style];
     let bottomOptions = bottoms[style];
 
-    // Base variation
-    o.top = attr.palette[seed % attr.palette.length] + " " + pick(topOptions, seed);
+    o.top = pick(topOptions, seed);
     o.bottom = pick(bottomOptions, seed + 1);
 
-    // Style adjustments
     if (type === "Safe") {
       o.bottom = bottomOptions[0];
     }
 
     if (type === "Bold") {
-      o.top = attr.palette[2] + " " + topOptions[topOptions.length - 1];
-    }
-
-    // Traditional override
-    if (style === "traditional") {
-      o.top = pick(tops.traditional, seed);
-      o.bottom = pick(bottoms.traditional, seed);
+      o.top = topOptions[topOptions.length - 1];
     }
 
     return o;
@@ -124,7 +103,7 @@ function runEngine() {
   ];
 
   // =========================
-  // 🔹 FAIR SCORING
+  // SCORING
   // =========================
 
   function score(o) {
@@ -142,9 +121,6 @@ function runEngine() {
     if (input.vibe === "classic" && o.name === "Balanced") s += 10;
     if (input.vibe === "street" && o.name === "Bold") s += 10;
 
-    if (s > 100) s = 100;
-    if (s < 0) s = 0;
-
     return s;
   }
 
@@ -155,7 +131,7 @@ function runEngine() {
 }
 
 // =========================
-// 🔹 DISPLAY (PREMIUM UI)
+// DISPLAY (WORKING)
 // =========================
 
 function display(outfits) {
@@ -165,13 +141,13 @@ function display(outfits) {
   outfits.forEach(o => {
     html += `
       <div class="result-card">
-        <h4>${o.name} Option <span class="score">${o.score}</span></h4>
+        <h4>${o.name} <span class="score">${o.score}</span></h4>
 
         <p><b>Top:</b> ${o.top}</p>
         <p><b>Bottom:</b> ${o.bottom}</p>
         <p><b>Shoes:</b> ${o.shoes}</p>
 
-        <p><b>Why it works:</b></p>
+        <p><b>Why:</b></p>
         <ul>${o.explanation.map(e => `<li>${e}</li>`).join("")}</ul>
 
         <p><b>Avoid:</b></p>
@@ -184,7 +160,7 @@ function display(outfits) {
 }
 
 // =========================
-// 🔹 HELPER
+// HELPER
 // =========================
 
 function get(id) {
