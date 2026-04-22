@@ -8,6 +8,7 @@
       max-width: 700px;
       margin: auto;
       padding: 20px;
+      background: #fff;
     }
 
     h1 {
@@ -24,6 +25,7 @@
       margin-top: 20px;
       padding: 15px;
       border: 1px solid #ddd;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -34,112 +36,113 @@
 
 <!-- BODY -->
 <select id="height">
-  <option value="">Height</option>
-  <option value="short">Below 165</option>
-  <option value="medium">165–175</option>
-  <option value="tall">Above 175</option>
+  <option value="">Your Height</option>
+  <option value="short">Below 165 cm</option>
+  <option value="medium">165–175 cm</option>
+  <option value="tall">Above 175 cm</option>
 </select>
 
 <select id="bodyShape">
-  <option value="">Body Shape</option>
-  <option value="rectangle">Rectangle</option>
-  <option value="triangle">Triangle</option>
-  <option value="inverted">Inverted Triangle</option>
-  <option value="oval">Oval</option>
+  <option value="">Which describes your body best?</option>
+  <option value="rectangle">Shoulders and waist similar</option>
+  <option value="triangle">Lower body heavier</option>
+  <option value="inverted">Upper body broader</option>
+  <option value="oval">Weight around stomach</option>
 </select>
 
 <select id="goal">
-  <option value="">Goal</option>
-  <option value="taller">Look Taller</option>
-  <option value="slimmer">Look Slimmer</option>
-  <option value="broader">Look Broader</option>
-  <option value="balanced">Balanced</option>
+  <option value="">What do you want to improve?</option>
+  <option value="taller">Look taller</option>
+  <option value="slimmer">Look slimmer</option>
+  <option value="broader">Look more strong/broad</option>
+  <option value="balanced">Look balanced</option>
 </select>
 
 <select id="legRatio">
-  <option value="">Leg Ratio</option>
-  <option value="short">Short Legs</option>
+  <option value="">Your body looks more like</option>
+  <option value="short">Upper body longer</option>
   <option value="balanced">Balanced</option>
-  <option value="long">Long Legs</option>
+  <option value="long">Legs longer</option>
 </select>
 
 <!-- COLOR -->
 <select id="undertone">
-  <option value="">Skin Undertone</option>
-  <option value="warm">Warm</option>
-  <option value="cool">Cool</option>
-  <option value="neutral">Neutral</option>
+  <option value="">Which jewelry looks better?</option>
+  <option value="warm">Gold looks better</option>
+  <option value="cool">Silver looks better</option>
+  <option value="neutral">Both look fine</option>
+  <option value="unknown">Not sure</option>
 </select>
 
 <select id="tone">
-  <option value="">Skin Tone</option>
+  <option value="">Your skin tone</option>
   <option value="light">Light</option>
   <option value="medium">Medium</option>
   <option value="dark">Dark</option>
 </select>
 
 <select id="contrast">
-  <option value="">Contrast Level</option>
-  <option value="low">Low</option>
-  <option value="medium">Medium</option>
-  <option value="high">High</option>
+  <option value="">Your overall look</option>
+  <option value="low">Everything similar tone</option>
+  <option value="medium">Slight difference</option>
+  <option value="high">Strong contrast</option>
 </select>
 
 <!-- STYLE -->
 <select id="silhouette">
-  <option value="">Silhouette</option>
-  <option value="structured">Structured</option>
-  <option value="balanced">Balanced</option>
-  <option value="relaxed">Relaxed</option>
+  <option value="">You prefer clothes that are</option>
+  <option value="structured">Tight & sharp</option>
+  <option value="balanced">Normal fit</option>
+  <option value="relaxed">Loose & relaxed</option>
 </select>
 
 <select id="fit">
-  <option value="">Fit</option>
-  <option value="slim">Slim</option>
-  <option value="regular">Regular</option>
-  <option value="oversized">Oversized</option>
+  <option value="">Your usual clothing fit</option>
+  <option value="slim">Slim fit</option>
+  <option value="regular">Regular fit</option>
+  <option value="oversized">Loose/oversized</option>
 </select>
 
 <!-- CONTEXT -->
 <select id="occasion">
-  <option value="">Occasion</option>
-  <option value="casual">Casual</option>
-  <option value="smart">Smart Casual</option>
+  <option value="">Where will you wear this?</option>
+  <option value="casual">Daily casual</option>
+  <option value="smart">Smart casual</option>
   <option value="formal">Formal</option>
   <option value="party">Party</option>
 </select>
 
 <select id="climate">
-  <option value="">Climate</option>
+  <option value="">Your weather</option>
   <option value="hot">Hot</option>
   <option value="moderate">Moderate</option>
   <option value="cold">Cold</option>
 </select>
 
 <select id="time">
-  <option value="">Time</option>
+  <option value="">You go out mostly</option>
   <option value="day">Day</option>
   <option value="night">Night</option>
 </select>
 
 <select id="budget">
-  <option value="">Budget</option>
+  <option value="">Your budget</option>
   <option value="low">Low</option>
   <option value="medium">Medium</option>
   <option value="high">High</option>
 </select>
 
-<!-- IDENTITY -->
+<!-- STYLE IDENTITY -->
 <select id="style">
-  <option value="">Style</option>
-  <option value="minimal">Minimal</option>
-  <option value="classic">Classic</option>
-  <option value="street">Streetwear</option>
+  <option value="">Which style do you like?</option>
+  <option value="minimal">Simple & clean</option>
+  <option value="classic">Classic & formal</option>
+  <option value="street">Trendy / street</option>
   <option value="sporty">Sporty</option>
 </select>
 
 <select id="risk">
-  <option value="">Risk</option>
+  <option value="">Your preference</option>
   <option value="safe">Safe</option>
   <option value="balanced">Balanced</option>
   <option value="bold">Bold</option>
@@ -147,9 +150,9 @@
 
 <!-- FOOTWEAR -->
 <select id="footwear">
-  <option value="">Footwear</option>
+  <option value="">Shoes you wear most</option>
   <option value="sneakers">Sneakers</option>
-  <option value="formal">Formal Shoes</option>
+  <option value="formal">Formal shoes</option>
   <option value="boots">Boots</option>
   <option value="sandals">Sandals</option>
 </select>
