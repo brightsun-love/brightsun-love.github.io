@@ -1,6 +1,3 @@
-// 🔥 DEBUG: check if JS is loading
-alert("JS Loaded");
-
 function runEngine() {
 
   const input = {
@@ -10,9 +7,6 @@ function runEngine() {
     vibe: get("vibe")
   };
 
-  // =========================
-  // VALIDATION
-  // =========================
   if (!input.height || !input.bodyShape || !input.goal || !input.vibe) {
     alert("Please select all options");
     return;
@@ -21,10 +15,7 @@ function runEngine() {
   let explanation = [];
   let avoid = [];
 
-  // =========================
   // LOGIC
-  // =========================
-
   if (input.height === "short" || input.goal === "taller") {
     explanation.push("Vertical styling makes you look taller");
     avoid.push("Avoid strong contrast outfits");
@@ -42,10 +33,7 @@ function runEngine() {
     explanation.push("Avoid tight clothing around stomach");
   }
 
-  // =========================
   // DATA
-  // =========================
-
   const tops = {
     minimal: ["plain t-shirt", "Oxford shirt"],
     classic: ["formal shirt", "linen shirt"],
@@ -55,62 +43,66 @@ function runEngine() {
 
   const bottoms = {
     minimal: ["slim-fit chinos", "dark jeans"],
-    classic: ["tailored trousers"],
-    street: ["cargo pants"],
+    classic: ["tailored trousers", "formal pants"],
+    street: ["cargo pants", "relaxed jeans"],
     traditional: ["churidar"]
   };
 
-  // =========================
-  // HELPER
-  // =========================
-
-  function pick(arr, seed) {
-    return arr[seed % arr.length];
-  }
-
-  // =========================
-  // GENERATOR
-  // =========================
-
-  function generate(type, seed) {
+  function generate(type) {
 
     let style = tops[input.vibe] ? input.vibe : "minimal";
 
     let o = {
       name: type,
-      top: pick(tops[style], seed),
-      bottom: pick(bottoms[style], seed + 1),
+      top: "",
+      bottom: "",
       shoes: "clean sneakers",
       explanation: [...explanation],
       avoid: [...avoid],
       score: 0
     };
 
+    // 🔥 DIFFERENT LOGIC PER TYPE
+
+    if (type === "Safe") {
+      o.top = tops[style][0];
+      o.bottom = bottoms[style][0];
+    }
+
+    if (type === "Balanced") {
+      o.top = tops[style][1] || tops[style][0];
+      o.bottom = bottoms[style][0];
+    }
+
+    if (type === "Bold") {
+      o.top = tops[style][1] || tops[style][0];
+      o.bottom = bottoms[style][1] || bottoms[style][0];
+    }
+
     return o;
   }
 
   let outfits = [
-    generate("Safe", 1),
-    generate("Balanced", 2),
-    generate("Bold", 3)
+    generate("Safe"),
+    generate("Balanced"),
+    generate("Bold")
   ];
 
-  // =========================
-  // SCORING
-  // =========================
-
+  // 🔥 IMPROVED SCORING
   function score(o) {
 
-    let s = 60;
+    let s = 50;
 
     if (input.goal === "slimmer") {
-      if (o.bottom.includes("slim")) s += 10;
+      if (o.bottom.includes("slim")) s += 15;
       else s -= 5;
     }
 
-    if (input.vibe === "street" && o.name === "Bold") s += 10;
-    if (input.vibe === "classic" && o.name === "Balanced") s += 10;
-    if (input.vibe === "minimal" && o.name === "Safe") s += 5;
+    if (input.vibe === "minimal" && o.name === "Safe") s += 15;
+    if (input.vibe === "classic" && o.name === "Balanced") s += 15;
+    if (input.vibe === "street" && o.name === "Bold") s += 15;
+
+    if (input.goal === "taller" && o.top === o.bottom) s += 10;
 
     return s;
   }
@@ -121,23 +113,21 @@ function runEngine() {
   display(outfits);
 }
 
-// =========================
 // DISPLAY
-// =========================
-
 function display(outfits) {
 
-  let html = "";
+  let html = "<h2>Top Recommendations</h2>";
 
   outfits.forEach(o => {
     html += `
       <div class="result-card">
-        <h4>${o.name} <span class="score">${o.score}</span></h4>
+        <h4>${o.name} (Score: ${o.score})</h4>
+
         <p><b>Top:</b> ${o.top}</p>
         <p><b>Bottom:</b> ${o.bottom}</p>
         <p><b>Shoes:</b> ${o.shoes}</p>
 
-        <p><b>Why:</b></p>
+        <p><b>Why it works:</b></p>
         <ul>${o.explanation.map(e => `<li>${e}</li>`).join("")}</ul>
 
         <p><b>Avoid:</b></p>
@@ -148,10 +138,6 @@ function display(outfits) {
 
   document.getElementById("result").innerHTML = html;
 }
-
-// =========================
-// HELPER
-// =========================
 
 function get(id) {
   return document.getElementById(id).value;
