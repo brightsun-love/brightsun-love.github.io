@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fashion Hub</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Fashion Hub</h1>
+
+<!-- BODY -->
+<select id="height">
+  <option value="">Height</option>
+  <option value="short">Below 165</option>
+  <option value="medium">165–175</option>
+  <option value="tall">Above 175</option>
+</select>
+
+<select id="bodyShape">
+  <option value="">Body Shape</option>
+  <option value="rectangle">Rectangle</option>
+  <option value="triangle">Triangle</option>
+  <option value="inverted">Inverted Triangle</option>
+  <option value="oval">Oval</option>
+</select>
+
+<select id="goal">
+  <option value="">Goal</option>
+  <option value="taller">Look Taller</option>
+  <option value="slimmer">Look Slimmer</option>
+  <option value="broader">Look Broader</option>
+  <option value="balanced">Balanced</option>
+</select>
+
+<select id="legRatio">
+  <option value="">Leg Ratio</option>
+  <option value="short">Short Legs</option>
+  <option value="balanced">Balanced</option>
+  <option value="long">Long Legs</option>
+</select>
+
+<!-- COLOR -->
+<select id="undertone">
+  <option value="">Skin Undertone</option>
+  <option value="warm">Warm</option>
+  <option value="cool">Cool</option>
+  <option value="neutral">Neutral</option>
+</select>
+
+<select id="tone">
+  <option value="">Skin Tone</option>
+  <option value="light">Light</option>
+  <option value="medium">Medium</option>
+  <option value="dark">Dark</option>
+</select>
+
+<select id="contrast">
+  <option value="">Contrast Level</option>
+  <option value="low">Low</option>
+  <option value="medium">Medium</option>
+  <option value="high">High</option>
+</select>
+
+<!-- STYLE -->
+<select id="silhouette">
+  <option value="">Silhouette</option>
+  <option value="structured">Structured</option>
+  <option value="balanced">Balanced</option>
+  <option value="relaxed">Relaxed</option>
+</select>
+
+<select id="fit">
+  <option value="">Fit</option>
+  <option value="slim">Slim</option>
+  <option value="regular">Regular</option>
+  <option value="oversized">Oversized</option>
+</select>
+
+<!-- CONTEXT -->
+<select id="occasion">
+  <option value="">Occasion</option>
+  <option value="casual">Casual</option>
+  <option value="smart">Smart Casual</option>
+  <option value="formal">Formal</option>
+  <option value="party">Party</option>
+</select>
+
+<select id="climate">
+  <option value="">Climate</option>
+  <option value="hot">Hot</option>
+  <option value="moderate">Moderate</option>
+  <option value="cold">Cold</option>
+</select>
+
+<select id="time">
+  <option value="">Time</option>
+  <option value="day">Day</option>
+  <option value="night">Night</option>
+</select>
+
+<select id="budget">
+  <option value="">Budget</option>
+  <option value="low">Low</option>
+  <option value="medium">Medium</option>
+  <option value="high">High</option>
+</select>
+
+<!-- IDENTITY -->
+<select id="style">
+  <option value="">Style</option>
+  <option value="minimal">Minimal</option>
+  <option value="classic">Classic</option>
+  <option value="street">Streetwear</option>
+  <option value="sporty">Sporty</option>
+</select>
+
+<select id="risk">
+  <option value="">Risk</option>
+  <option value="safe">Safe</option>
+  <option value="balanced">Balanced</option>
+  <option value="bold">Bold</option>
+</select>
+
+<!-- FOOTWEAR -->
+<select id="footwear">
+  <option value="">Footwear</option>
+  <option value="sneakers">Sneakers</option>
+  <option value="formal">Formal Shoes</option>
+  <option value="boots">Boots</option>
+  <option value="sandals">Sandals</option>
+</select>
+
+<button onclick="runEngine()">Get Recommendation</button>
+
+<div id="result" class="result"></div>
+
+<script src="fashion.js"></script>
+
+</body>
+</html>
