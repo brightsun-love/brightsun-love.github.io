@@ -1,3 +1,6 @@
+// 🔥 DEBUG: check if JS is loading
+alert("JS Loaded");
+
 function runEngine() {
 
   const input = {
@@ -8,7 +11,7 @@ function runEngine() {
   };
 
   // =========================
-  // 🔹 VALIDATION (IMPORTANT)
+  // VALIDATION
   // =========================
   if (!input.height || !input.bodyShape || !input.goal || !input.vibe) {
     alert("Please select all options");
@@ -19,7 +22,7 @@ function runEngine() {
   let avoid = [];
 
   // =========================
-  // 🔹 LOGIC
+  // LOGIC
   // =========================
 
   if (input.height === "short" || input.goal === "taller") {
@@ -40,7 +43,7 @@ function runEngine() {
   }
 
   // =========================
-  // 🔹 DATA
+  // DATA
   // =========================
 
   const tops = {
@@ -58,7 +61,7 @@ function runEngine() {
   };
 
   // =========================
-  // 🔹 HELPER
+  // HELPER
   // =========================
 
   function pick(arr, seed) {
@@ -66,12 +69,11 @@ function runEngine() {
   }
 
   // =========================
-  // 🔹 GENERATOR
+  // GENERATOR
   // =========================
 
   function generate(type, seed) {
 
-    // Safe style selection
     let style = tops[input.vibe] ? input.vibe : "minimal";
 
     let o = {
@@ -94,20 +96,18 @@ function runEngine() {
   ];
 
   // =========================
-  // 🔹 IMPROVED SCORING
+  // SCORING
   // =========================
 
   function score(o) {
 
     let s = 60;
 
-    // Slim goal logic
     if (input.goal === "slimmer") {
       if (o.bottom.includes("slim")) s += 10;
       else s -= 5;
     }
 
-    // Style matching
     if (input.vibe === "street" && o.name === "Bold") s += 10;
     if (input.vibe === "classic" && o.name === "Balanced") s += 10;
     if (input.vibe === "minimal" && o.name === "Safe") s += 5;
@@ -122,7 +122,7 @@ function runEngine() {
 }
 
 // =========================
-// 🔹 DISPLAY
+// DISPLAY
 // =========================
 
 function display(outfits) {
@@ -150,7 +150,7 @@ function display(outfits) {
 }
 
 // =========================
-// 🔹 HELPER
+// HELPER
 // =========================
 
 function get(id) {
