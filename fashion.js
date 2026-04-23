@@ -15,149 +15,177 @@ function runEngine() {
   };
 
   // =========================
-  // 🔹 LAYER 1: ATTRIBUTE ENGINE
+  // 🔹 ATTRIBUTE ENGINE
   // =========================
 
   let attr = {
     silhouette: "balanced",
     palette: [],
     formality: "casual",
-    structure: "normal"
   };
 
   let explanation = [];
   let avoid = [];
 
-  // Proportion
   if (input.height === "short" || input.goal === "taller") {
     attr.silhouette = "vertical";
     explanation.push("Vertical styling improves height perception");
-    avoid.push("Avoid strong color breaks");
+    avoid.push("Avoid strong contrast between top and bottom");
   }
 
   if (input.goal === "slimmer") {
-    attr.structure = "slim";
-    explanation.push("Slim structure reduces visual bulk");
+    explanation.push("Slim-fit clothing reduces visual bulk");
   }
 
-  // Body shape
   if (input.bodyShape === "triangle") {
-    explanation.push("Balance lower body with lighter upper area");
+    explanation.push("Lighter top balances heavier lower body");
   }
 
   if (input.bodyShape === "inverted") {
-    explanation.push("Reduce upper dominance with darker top");
+    explanation.push("Darker top balances upper body");
   }
 
   if (input.bodyShape === "oval") {
     attr.silhouette = "vertical";
-    explanation.push("Vertical lines reduce focus on midsection");
+    explanation.push("Vertical lines reduce midsection focus");
   }
 
-  // Color
+  // Palette
   if (input.undertone === "warm") {
-    attr.palette = ["beige", "olive", "brown"];
+    attr.palette = ["beige", "olive green", "warm brown"];
   } else {
-    attr.palette = ["white", "grey", "black"];
+    attr.palette = ["white", "charcoal grey", "black"];
   }
 
-  // Occasion
-  if (input.occasion === "formal") attr.formality = "formal";
-  if (input.occasion === "party") attr.formality = "party";
-
   // =========================
-  // 🔹 LAYER 2: OUTFIT GENERATION
+  // 🔹 OUTFIT GENERATION
   // =========================
 
-  function generateOutfit(type) {
+  function generate(type) {
 
-    let outfit = {
+    let o = {
       name: type,
       top: "",
       bottom: "",
-      shoes: input.footwear,
-      score: 0,
-      explanation: [],
-      avoid: []
+      shoes: "",
+      fabric: "",
+      explanation: explanation,
+      avoid: avoid,
+      score: 0
     };
 
-    // Base logic
-    if (attr.formality === "formal") {
-      outfit.top = attr.palette[0] + " formal shirt";
-      outfit.bottom = "tailored trousers";
-    } else {
-      outfit.top = attr.palette[0] + " shirt";
-      outfit.bottom = "dark trousers";
-    }
+    // Fabric
+    o.fabric = input.climate === "hot"
+      ? "breathable cotton or linen"
+      : "layered fabrics (cotton + jacket)";
 
-    // Variation by type
+    // Shoes
+    const shoesMap = {
+      sneakers: "minimal white leather sneakers",
+      formal: "black leather formal shoes",
+      boots: "brown leather boots"
+    };
+
+    o.shoes = shoesMap[input.footwear] || "clean sneakers";
+
+    // SAFE
     if (type === "Safe") {
-      outfit.top = attr.palette[0] + " shirt";
-      outfit.bottom = "dark trousers";
+      o.top = `${attr.palette[0]} slim-fit Oxford cotton shirt`;
+      o.bottom = "charcoal slim-fit chinos";
     }
 
+    // BALANCED
     if (type === "Balanced") {
-      outfit.top = attr.palette[1] + " shirt";
-      outfit.bottom = "neutral chinos";
+      o.top = `${attr.palette[1]} linen shirt`;
+      o.bottom = "beige tailored trousers";
     }
 
+    // BOLD
     if (type === "Bold") {
-      outfit.top = attr.palette[2] + " statement shirt";
-      outfit.bottom = "contrast pants";
+      o.top = `${attr.palette[2]} textured statement shirt`;
+      o.bottom = "contrast tailored pants";
     }
 
-    // Vibe influence
+    // VIBE ADJUSTMENTS
     if (input.vibe === "street" && type === "Bold") {
-      outfit.bottom = "cargo pants";
+      o.top = "oversized graphic t-shirt";
+      o.bottom = "relaxed-fit cargo pants";
     }
 
     if (input.vibe === "traditional" && type === "Safe") {
-      outfit.top = "traditional kurta";
+      o.top = "cotton straight-fit kurta";
+      o.bottom = "tailored churidar trousers";
     }
 
-    // Climate
-    outfit.fabric = input.climate === "hot"
-      ? "cotton / linen"
-      : "layered fabrics";
-
-    outfit.explanation = explanation;
-    outfit.avoid = avoid;
-
-    return outfit;
+    return o;
   }
 
   let outfits = [
-    generateOutfit("Safe"),
-    generateOutfit("Balanced"),
-    generateOutfit("Bold")
+    generate("Safe"),
+    generate("Balanced"),
+    generate("Bold")
   ];
 
   // =========================
-  // 🔹 LAYER 3: SCORING ENGINE
+  // 🔹 FAIR SCORING SYSTEM
   // =========================
 
-  function score(outfit) {
+  function score(o) {
 
-    let score = 0;
+    let s = 60;
 
-    // Proportion (30)
-    if (attr.silhouette === "vertical") score += 30;
+    // PROPORTION
+    if (attr.silhouette === "vertical") {
+      if (input.height === "short") s += 15;
+      else s += 5;
+    }
 
-    // Context (25)
-    if (input.occasion) score += 15;
-    if (input.climate) score += 10;
+    if (input.height === "short" && o.top !== o.bottom) {
+      s -= 10;
+    }
 
-    // Fit (20)
-    if (input.fit === "slim") score += 20;
+    // FIT
+    if (input.goal === "slimmer") {
+      if (o.bottom.includes("slim")) s += 12;
+      else s -= 12;
+    }
 
-    // Color (15)
-    if (attr.palette.length) score += 15;
+    // BODY
+    if (input.bodyShape === "triangle") {
+      if (o.top.includes("beige") || o.top.includes("white")) s += 8;
+      else s -= 5;
+    }
 
-    // Style (10)
-    if (input.vibe === "minimal" && outfit.name === "Safe") score += 10;
-    if (input.vibe === "street" && outfit.name === "Bold") score += 10;
+    if (input.bodyShape === "inverted") {
+      if (o.top.includes("black") || o.top.includes("charcoal")) s += 8;
+      else s -= 5;
+    }
 
-    return score;
+    // CONTEXT
+    if (input.occasion === "formal") {
+      if (o.top.includes("shirt")) s += 10;
+      else s -= 8;
+    }
+
+    if (input.climate === "hot") {
+      if (o.fabric.includes("cotton")) s += 8;
+      if (o.fabric.includes("layered")) s -= 8;
+    }
+
+    // STYLE MATCH
+    if (input.vibe === "minimal" && o.name === "Safe") s += 10;
+    if (input.vibe === "classic" && o.name === "Balanced") s += 10;
+    if (input.vibe === "street" && o.name === "Bold") s += 10;
+
+    if (input.vibe === "traditional" && o.top.includes("kurta")) {
+      s += 12;
+    }
+
+    // LIMIT
+    if (s > 100) s = 100;
+    if (s < 0) s = 0;
+
+    return s;
   }
 
   outfits.forEach(o => o.score = score(o));
@@ -176,7 +204,7 @@ function display(outfits) {
 
   outfits.forEach(o => {
     html += `
-      <div style="margin-bottom:20px; padding:15px; border:1px solid #ccc; border-radius:10px;">
+      <div style="margin-bottom:20px;padding:15px;border:1px solid #ccc;border-radius:10px;">
         <h4>${o.name} Option (Score: ${o.score})</h4>
         <p><b>Top:</b> ${o.top}</p>
         <p><b>Bottom:</b> ${o.bottom}</p>
