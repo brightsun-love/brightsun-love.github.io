@@ -11,7 +11,6 @@ function runEngine() {
     occasion: get("occasion"),
     climate: get("climate"),
     style: get("style"),
-    styleType: get("styleType"),
     footwear: get("footwear")
   };
 
@@ -53,20 +52,6 @@ function runEngine() {
   let fabric = input.climate === "hot"
     ? "cotton / linen"
     : "layered fabrics";
-
-  // STYLE TYPE (NEW)
-  if (input.styleType === "traditional") {
-    top = "traditional kurta";
-    explanation.push("Traditional style suits cultural settings");
-  }
-
-  if (input.styleType === "modern") {
-    explanation.push("Modern style gives a clean Western look");
-  }
-
-  if (input.styleType === "mix") {
-    explanation.push("Mixing styles gives versatile appearance");
-  }
 
   // RESULT
   document.getElementById("result").innerHTML = `
