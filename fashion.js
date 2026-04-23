@@ -15,14 +15,14 @@ function runEngine() {
   };
 
   // =========================
-  // 🔹 LAYER 1: ATTRIBUTES
+  // 🔹 LAYER 1: ATTRIBUTE ENGINE
   // =========================
 
   let attr = {
     silhouette: "balanced",
     palette: [],
     formality: "casual",
-    fitType: input.fit || "regular"
+    structure: "normal"
   };
 
   let explanation = [];
@@ -32,124 +32,132 @@ function runEngine() {
   if (input.height === "short" || input.goal === "taller") {
     attr.silhouette = "vertical";
     explanation.push("Vertical styling improves height perception");
-    avoid.push("Avoid strong contrast between top and bottom");
+    avoid.push("Avoid strong color breaks");
   }
 
   if (input.goal === "slimmer") {
-    attr.fitType = "slim-fit";
-    explanation.push("Slim-fit clothing reduces visual bulk");
+    attr.structure = "slim";
+    explanation.push("Slim structure reduces visual bulk");
   }
 
-  // Body
+  // Body shape
   if (input.bodyShape === "triangle") {
-    explanation.push("Lighter upper clothing balances lower body");
+    explanation.push("Balance lower body with lighter upper area");
   }
 
   if (input.bodyShape === "inverted") {
-    explanation.push("Darker tops reduce upper body dominance");
+    explanation.push("Reduce upper dominance with darker top");
   }
 
   if (input.bodyShape === "oval") {
     attr.silhouette = "vertical";
-    explanation.push("Clean vertical lines reduce midsection focus");
+    explanation.push("Vertical lines reduce focus on midsection");
   }
 
-  // Color palette
+  // Color
   if (input.undertone === "warm") {
-    attr.palette = ["beige", "olive green", "warm brown"];
+    attr.palette = ["beige", "olive", "brown"];
   } else {
-    attr.palette = ["white", "charcoal grey", "black"];
+    attr.palette = ["white", "grey", "black"];
   }
 
-  // Formality
+  // Occasion
   if (input.occasion === "formal") attr.formality = "formal";
   if (input.occasion === "party") attr.formality = "party";
 
   // =========================
-  // 🔹 LAYER 2: OUTFITS
+  // 🔹 LAYER 2: OUTFIT GENERATION
   // =========================
 
-  function outfit(type) {
+  function generateOutfit(type) {
 
-    let o = {
+    let outfit = {
       name: type,
       top: "",
       bottom: "",
-      shoes: "",
-      fabric: "",
+      shoes: input.footwear,
       score: 0,
-      explanation: explanation,
-      avoid: avoid
+      explanation: [],
+      avoid: []
     };
 
-    // Fabric
-    o.fabric = input.climate === "hot"
-      ? "breathable cotton or linen"
-      : "layered fabrics (cotton + outerwear)";
+    // Base logic
+    if (attr.formality === "formal") {
+      outfit.top = attr.palette[0] + " formal shirt";
+      outfit.bottom = "tailored trousers";
+    } else {
+      outfit.top = attr.palette[0] + " shirt";
+      outfit.bottom = "dark trousers";
+    }
 
-    // Shoes mapping
-    let shoesMap = {
-      sneakers: "minimal white leather sneakers",
-      formal: "black leather formal shoes",
-      boots: "brown leather boots"
-    };
-    o.shoes = shoesMap[input.footwear] || "clean sneakers";
-
-    // SAFE
+    // Variation by type
     if (type === "Safe") {
-      o.top = `${attr.palette[0]} ${attr.fitType} Oxford cotton shirt`;
-      o.bottom = "charcoal slim-fit chinos";
+      outfit.top = attr.palette[0] + " shirt";
+      outfit.bottom = "dark trousers";
     }
 
-    // BALANCED
     if (type === "Balanced") {
-      o.top = `${attr.palette[1]} linen shirt`;
-      o.bottom = "beige tailored trousers";
+      outfit.top = attr.palette[1] + " shirt";
+      outfit.bottom = "neutral chinos";
     }
 
-    // BOLD
     if (type === "Bold") {
-      o.top = `${attr.palette[2]} statement textured shirt`;
-      o.bottom = "contrast tailored pants";
+      outfit.top = attr.palette[2] + " statement shirt";
+      outfit.bottom = "contrast pants";
     }
 
-    // VIBE ADJUSTMENT
+    // Vibe influence
     if (input.vibe === "street" && type === "Bold") {
-      o.top = "oversized graphic t-shirt";
-      o.bottom = "relaxed-fit cargo pants";
+      outfit.bottom = "cargo pants";
     }
 
     if (input.vibe === "traditional" && type === "Safe") {
-      o.top = "cotton straight-fit kurta";
-      o.bottom = "tailored trousers or churidar";
+      outfit.top = "traditional kurta";
     }
 
-    return o;
+    // Climate
+    outfit.fabric = input.climate === "hot"
+      ? "cotton / linen"
+      : "layered fabrics";
+
+    outfit.explanation = explanation;
+    outfit.avoid = avoid;
+
+    return outfit;
   }
 
   let outfits = [
-    outfit("Safe"),
-    outfit("Balanced"),
-    outfit("Bold")
+    generateOutfit("Safe"),
+    generateOutfit("Balanced"),
+    generateOutfit("Bold")
   ];
 
   // =========================
-  // 🔹 LAYER 3: SCORING
+  // 🔹 LAYER 3: SCORING ENGINE
   // =========================
 
-  function score(o) {
-    let s = 0;
+  function score(outfit) {
 
-    if (attr.silhouette === "vertical") s += 30;
-    if (input.occasion) s += 20;
-    if (input.fit === "slim") s += 15;
-    if (attr.palette.length) s += 15;
+    let score = 0;
 
-    if (input.vibe === "minimal" && o.name === "Safe") s += 10;
-    if (input.vibe === "classic" && o.name === "Balanced") s += 10;
-    if (input.vibe === "street" && o.name === "Bold") s += 10;
+    // Proportion (30)
+    if (attr.silhouette === "vertical") score += 30;
 
-    return s;
+    // Context (25)
+    if (input.occasion) score += 15;
+    if (input.climate) score += 10;
+
+    // Fit (20)
+    if (input.fit === "slim") score += 20;
+
+    // Color (15)
+    if (attr.palette.length) score += 15;
+
+    // Style (10)
+    if (input.vibe === "minimal" && outfit.name === "Safe") score += 10;
+    if (input.vibe === "street" && outfit.name === "Bold") score += 10;
+
+    return score;
   }
 
   outfits.forEach(o => o.score = score(o));
@@ -168,7 +176,7 @@ function display(outfits) {
 
   outfits.forEach(o => {
     html += `
-      <div style="margin-bottom:20px;padding:15px;border:1px solid #ccc;border-radius:10px;">
+      <div style="margin-bottom:20px; padding:15px; border:1px solid #ccc; border-radius:10px;">
         <h4>${o.name} Option (Score: ${o.score})</h4>
         <p><b>Top:</b> ${o.top}</p>
         <p><b>Bottom:</b> ${o.bottom}</p>
@@ -186,6 +194,10 @@ function display(outfits) {
 
   document.getElementById("result").innerHTML = html;
 }
+
+// =========================
+// 🔹 HELPER
+// =========================
 
 function get(id) {
   return document.getElementById(id).value;
