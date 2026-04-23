@@ -3,6 +3,7 @@
 <head>
   <title>Fashion Hub</title>
 
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
@@ -24,6 +25,7 @@
       text-align: center;
       font-size: 46px;
       margin-bottom: 10px;
+      letter-spacing: 1px;
     }
 
     .helper {
@@ -32,12 +34,17 @@
       margin-bottom: 30px;
     }
 
+    /* GLASS CARD */
     .card {
       background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
       padding: 25px;
       border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
 
+    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -49,14 +56,17 @@
       padding: 14px;
       border-radius: 12px;
       border: none;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.08);
       color: #fff;
+      font-size: 14px;
+      backdrop-filter: blur(5px);
     }
 
     select option {
       color: #000;
     }
 
+    /* BUTTON */
     button {
       width: 100%;
       padding: 16px;
@@ -66,33 +76,58 @@
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
       color: #fff;
       font-size: 16px;
+      font-weight: 500;
       cursor: pointer;
+      transition: 0.3s;
     }
 
+    button:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(99,102,241,0.5);
+    }
+
+    /* RESULT */
     #result {
       margin-top: 40px;
     }
 
     .result-card {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
       padding: 20px;
-      border-radius: 16px;
-      margin-bottom: 15px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(20px);
+      transition: 0.3s;
+    }
+
+    .result-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+
+    .result-card h4 {
+      margin-bottom: 10px;
     }
 
     .score {
       float: right;
-      background: rgba(255,255,255,0.2);
-      padding: 4px 10px;
+      background: rgba(255,255,255,0.15);
+      padding: 5px 10px;
       border-radius: 10px;
+      font-size: 12px;
     }
 
-    #status {
-      text-align: center;
-      margin-top: 10px;
-      color: #00ffcc;
-      font-size: 14px;
+    ul {
+      padding-left: 18px;
     }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 
@@ -101,9 +136,7 @@
 <div class="container">
 
   <h1>Fashion Hub</h1>
-  <p class="helper">Smart styling system</p>
-
-  <div id="status">Loading JS...</div>
+  <p class="helper">AI-like styling powered by logic</p>
 
   <div class="card">
 
@@ -127,6 +160,7 @@
         <option value="">Goal</option>
         <option value="taller">Taller</option>
         <option value="slimmer">Slimmer</option>
+        <option value="broader">Broader</option>
       </select>
 
       <select id="vibe">
@@ -145,9 +179,6 @@
   <div id="result"></div>
 
 </div>
-
-<!-- IMPORTANT -->
-<script src="./fashion.js"></script>
 
 </body>
 </html>
