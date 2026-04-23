@@ -14,17 +14,16 @@ function runEngine() {
     footwear: get("footwear")
   };
 
-  let explanation = [];
-  let avoid = [];
-
   let palette = input.undertone === "warm"
     ? ["beige", "olive", "brown"]
     : ["white", "grey", "black"];
 
-  let top = palette[0] + " shirt";
-  let bottom = "dark trousers";
+  let baseBottom = "dark trousers";
 
-  // PROPORTION
+  // 🔹 COMMON LOGIC
+  let explanation = [];
+  let avoid = [];
+
   if (input.height === "short" || input.goal === "taller") {
     explanation.push("Vertical styling makes you look taller");
     avoid.push("Avoid strong color breaks");
@@ -35,7 +34,6 @@ function runEngine() {
     avoid.push("Avoid oversized clothes");
   }
 
-  // BODY
   if (input.bodyShape === "triangle") {
     explanation.push("Lighter top balances lower body");
   }
@@ -48,46 +46,100 @@ function runEngine() {
     explanation.push("Vertical lines reduce stomach focus");
   }
 
-  // CLIMATE
   let fabric = input.climate === "hot"
     ? "cotton / linen"
     : "layered fabrics";
 
-  // 🔥 STYLE VIBE ENGINE
-  if (input.vibe === "minimal") {
-    explanation.push("Minimal style gives clean and sharp look");
-  }
+  // 🔹 SAFE OUTFIT
+  let safe = {
+    name: "Safe Option",
+    top: palette[0] + " shirt",
+    bottom: baseBottom,
+    shoes: input.footwear,
+    score: score(input, "safe"),
+    explanation: explanation.slice(0, 2),
+    avoid: avoid.slice(0, 2)
+  };
 
-  if (input.vibe === "classic") {
-    explanation.push("Classic style creates a polished appearance");
-  }
+  // 🔹 BALANCED OUTFIT
+  let balanced = {
+    name: "Balanced Option",
+    top: palette[1] + " shirt",
+    bottom: "neutral chinos",
+    shoes: input.footwear,
+    score: score(input, "balanced"),
+    explanation: explanation.slice(0, 3),
+    avoid: avoid.slice(0, 2)
+  };
 
+  // 🔹 BOLD OUTFIT
+  let bold = {
+    name: "Bold Option",
+    top: palette[2] + " statement shirt",
+    bottom: "contrast pants",
+    shoes: input.footwear,
+    score: score(input, "bold"),
+    explanation: explanation,
+    avoid: avoid
+  };
+
+  // 🔹 STYLE VIBE EFFECT
   if (input.vibe === "street") {
-    explanation.push("Streetwear adds bold and trendy vibe");
-    bottom = "relaxed fit pants";
+    bold.bottom = "relaxed fit cargo pants";
   }
 
   if (input.vibe === "traditional") {
-    top = "traditional kurta";
-    explanation.push("Traditional style suits cultural settings");
+    safe.top = "traditional kurta";
   }
 
-  // RESULT
-  document.getElementById("result").innerHTML = `
-    <h3>Best Outfit</h3>
-    <p><b>Top:</b> ${top}</p>
-    <p><b>Bottom:</b> ${bottom}</p>
-    <p><b>Shoes:</b> ${input.footwear}</p>
-    <p><b>Fabric:</b> ${fabric}</p>
+  // 🔹 SORT BY SCORE
+  let outfits = [safe, balanced, bold];
+  outfits.sort((a, b) => b.score - a.score);
 
-    <p><b>Why it works:</b></p>
-    <ul>${explanation.map(e => `<li>${e}</li>`).join("")}</ul>
+  display(outfits, fabric);
+}
 
-    <p><b>Avoid:</b></p>
-    <ul>${avoid.map(a => `<li>${a}</li>`).join("")}</ul>
-  `;
+// 🔹 SCORING SYSTEM
+function score(input, type) {
+  let score = 0;
+
+  if (input.height === "short") score += 10;
+  if (input.goal) score += 10;
+  if (input.climate) score += 10;
+
+  if (input.vibe === "minimal" && type === "safe") score += 15;
+  if (input.vibe === "classic" && type === "balanced") score += 15;
+  if (input.vibe === "street" && type === "bold") score += 15;
+
+  return score;
 }
 
 function get(id) {
   return document.getElementById(id).value;
+}
+
+// 🔹 DISPLAY
+function display(outfits, fabric) {
+
+  let html = "<h3>Top Outfit Recommendations</h3>";
+
+  outfits.forEach(o => {
+    html += `
+      <div style="margin-bottom:20px; padding:15px; border:1px solid #ccc; border-radius:10px;">
+        <h4>${o.name} (Score: ${o.score})</h4>
+        <p><b>Top:</b> ${o.top}</p>
+        <p><b>Bottom:</b> ${o.bottom}</p>
+        <p><b>Shoes:</b> ${o.shoes}</p>
+        <p><b>Fabric:</b> ${fabric}</p>
+
+        <p><b>Why it works:</b></p>
+        <ul>${o.explanation.map(e => `<li>${e}</li>`).join("")}</ul>
+
+        <p><b>Avoid:</b></p>
+        <ul>${o.avoid.map(a => `<li>${a}</li>`).join("")}</ul>
+      </div>
+    `;
+  });
+
+  document.getElementById("result").innerHTML = html;
 }
