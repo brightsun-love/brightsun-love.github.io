@@ -2,217 +2,128 @@
 <html>
 <head>
   <title>Fashion Hub</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
   <style>
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa, #e4e8ef);
-      color: #111;
-    }
-
-    .container {
-      max-width: 850px;
+      font-family: Arial;
+      max-width: 700px;
       margin: auto;
-      padding: 30px 20px;
-    }
-
-    /* HEADER */
-    h1 {
-      font-family: 'Playfair Display', serif;
-      text-align: center;
-      font-size: 42px;
-      margin-bottom: 5px;
-      letter-spacing: 1px;
-    }
-
-    .helper {
-      text-align: center;
-      color: #777;
-      margin-bottom: 30px;
-    }
-
-    /* MAIN CARD */
-    .card {
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(10px);
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-    }
-
-    select {
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      font-size: 14px;
-      transition: 0.2s;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: #555;
-    }
-
-    /* BUTTON */
-    button {
-      width: 100%;
-      padding: 15px;
-      margin-top: 15px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, #111, #333);
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    }
-
-    /* RESULT */
-    #result {
-      margin-top: 30px;
-    }
-
-    .result-card {
-      background: #fff;
       padding: 20px;
-      border-radius: 18px;
-      margin-bottom: 20px;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-      transition: 0.3s;
+      background: #fff;
     }
 
-    .result-card:hover {
-      transform: translateY(-3px);
+    h1 {
+      text-align: center;
     }
 
-    .result-card h4 {
-      margin-bottom: 10px;
-      font-weight: 600;
+    p.helper {
+      font-size: 14px;
+      color: #666;
     }
 
-    .score {
-      float: right;
-      font-size: 13px;
-      color: #555;
-      background: #f0f0f0;
-      padding: 4px 10px;
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
       border-radius: 10px;
     }
-
-    ul {
-      padding-left: 18px;
-    }
-
-    /* GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
   </style>
 </head>
 
 <body>
 
-<div class="container">
+<h1>Fashion Hub</h1>
+<p class="helper">Choose what stands out most about you (even if multiple apply)</p>
 
-  <h1>Fashion Hub</h1>
-  <p class="helper">Smart styling based on your body & preferences</p>
+<select id="height">
+  <option value="">Your Height</option>
+  <option value="short">Below 165 cm</option>
+  <option value="medium">165–175 cm</option>
+  <option value="tall">Above 175 cm</option>
+</select>
 
-  <div class="card">
+<select id="bodyShape">
+  <option value="">What stands out most about your body?</option>
+  <option value="rectangle">Body looks straight</option>
+  <option value="triangle">Lower body heavier</option>
+  <option value="inverted">Upper body broader</option>
+  <option value="oval">Stomach stands out</option>
+</select>
 
-    <div class="grid">
+<select id="goal">
+  <option value="">What do you want?</option>
+  <option value="taller">Look taller</option>
+  <option value="slimmer">Look slimmer</option>
+  <option value="broader">Look broader</option>
+  <option value="balanced">Balanced</option>
+</select>
 
-      <select id="height">
-        <option value="">Height</option>
-        <option value="short">Below 165 cm</option>
-        <option value="medium">165–175 cm</option>
-        <option value="tall">Above 175 cm</option>
-      </select>
+<select id="legRatio">
+  <option value="">Your body looks like</option>
+  <option value="short">Upper body longer</option>
+  <option value="balanced">Balanced</option>
+  <option value="long">Legs longer</option>
+</select>
 
-      <select id="bodyShape">
-        <option value="">Body Shape</option>
-        <option value="rectangle">Straight</option>
-        <option value="triangle">Lower heavy</option>
-        <option value="inverted">Upper broad</option>
-        <option value="oval">Stomach focus</option>
-      </select>
+<select id="undertone">
+  <option value="">Jewelry that suits you</option>
+  <option value="warm">Gold</option>
+  <option value="cool">Silver</option>
+  <option value="neutral">Both</option>
+</select>
 
-      <select id="goal">
-        <option value="">Goal</option>
-        <option value="taller">Look taller</option>
-        <option value="slimmer">Look slimmer</option>
-        <option value="broader">Look broader</option>
-      </select>
+<select id="contrast">
+  <option value="">Your look</option>
+  <option value="low">Similar tones</option>
+  <option value="medium">Slight difference</option>
+  <option value="high">High contrast</option>
+</select>
 
-      <select id="undertone">
-        <option value="">Undertone</option>
-        <option value="warm">Warm</option>
-        <option value="cool">Cool</option>
-      </select>
+<select id="fit">
+  <option value="">Your fit</option>
+  <option value="slim">Slim</option>
+  <option value="regular">Regular</option>
+  <option value="oversized">Oversized</option>
+</select>
 
-      <select id="fit">
-        <option value="">Fit</option>
-        <option value="slim">Slim</option>
-        <option value="regular">Regular</option>
-        <option value="oversized">Oversized</option>
-      </select>
+<select id="occasion">
+  <option value="">Occasion</option>
+  <option value="casual">Casual</option>
+  <option value="formal">Formal</option>
+  <option value="party">Party</option>
+</select>
 
-      <select id="occasion">
-        <option value="">Occasion</option>
-        <option value="casual">Casual</option>
-        <option value="formal">Formal</option>
-        <option value="party">Party</option>
-      </select>
+<select id="climate">
+  <option value="">Weather</option>
+  <option value="hot">Hot</option>
+  <option value="moderate">Moderate</option>
+  <option value="cold">Cold</option>
+</select>
 
-      <select id="climate">
-        <option value="">Climate</option>
-        <option value="hot">Hot</option>
-        <option value="cold">Cold</option>
-      </select>
+<select id="style">
+  <option value="">Style</option>
+  <option value="minimal">Minimal</option>
+  <option value="classic">Classic</option>
+  <option value="street">Street</option>
+</select>
 
-      <select id="vibe">
-        <option value="">Style</option>
-        <option value="minimal">Minimal</option>
-        <option value="classic">Classic</option>
-        <option value="street">Streetwear</option>
-        <option value="traditional">Traditional</option>
-      </select>
+<select id="footwear">
+  <option value="">Shoes</option>
+  <option value="sneakers">Sneakers</option>
+  <option value="formal">Formal</option>
+  <option value="boots">Boots</option>
+</select>
 
-    </div>
+<button onclick="runEngine()">Get Recommendation</button>
 
-    <select id="footwear">
-      <option value="">Footwear</option>
-      <option value="sneakers">Sneakers</option>
-      <option value="formal">Formal</option>
-      <option value="boots">Boots</option>
-    </select>
+<div id="result" class="result"></div>
 
-    <button onclick="runEngine()">Get Outfit</button>
-
-  </div>
-
-  <div id="result"></div>
-
-</div>
+<script src="fashion.js"></script>
 
 </body>
 </html>
