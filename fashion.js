@@ -4,7 +4,9 @@ function runEngine() {
     height: get("height"),
     bodyShape: get("bodyShape"),
     goal: get("goal"),
+    legRatio: get("legRatio"),
     undertone: get("undertone"),
+    contrast: get("contrast"),
     fit: get("fit"),
     occasion: get("occasion"),
     climate: get("climate"),
@@ -13,14 +15,13 @@ function runEngine() {
   };
 
   // =========================
-  // 🔹 ATTRIBUTES
+  // 🔹 ATTRIBUTE ENGINE
   // =========================
 
   let attr = {
     silhouette: "balanced",
-    palette: input.undertone === "warm"
-      ? ["beige", "olive", "brown"]
-      : ["white", "grey", "black"]
+    palette: [],
+    formality: "casual",
   };
 
   let explanation = [];
@@ -29,72 +30,91 @@ function runEngine() {
   if (input.height === "short" || input.goal === "taller") {
     attr.silhouette = "vertical";
     explanation.push("Vertical styling improves height perception");
+    avoid.push("Avoid strong contrast between top and bottom");
   }
 
   if (input.goal === "slimmer") {
-    explanation.push("Slim-fit reduces bulk");
+    explanation.push("Slim-fit clothing reduces visual bulk");
+  }
+
+  if (input.bodyShape === "triangle") {
+    explanation.push("Lighter top balances heavier lower body");
+  }
+
+  if (input.bodyShape === "inverted") {
+    explanation.push("Darker top balances upper body");
+  }
+
+  if (input.bodyShape === "oval") {
+    attr.silhouette = "vertical";
+    explanation.push("Vertical lines reduce midsection focus");
+  }
+
+  // Palette
+  if (input.undertone === "warm") {
+    attr.palette = ["beige", "olive green", "warm brown"];
+  } else {
+    attr.palette = ["white", "charcoal grey", "black"];
   }
 
   // =========================
-  // 🔹 DATA EXPANSION (CORE)
-  // =========================
-
-  const tops = {
-    minimal: ["Oxford shirt", "plain t-shirt", "polo shirt"],
-    classic: ["formal shirt", "linen shirt", "blazer + shirt"],
-    street: ["oversized t-shirt", "hoodie", "graphic tee"],
-    traditional: ["kurta", "embroidered kurta"]
-  };
-
-  const bottoms = {
-    minimal: ["slim-fit chinos", "dark jeans"],
-    classic: ["tailored trousers", "formal pants"],
-    street: ["cargo pants", "relaxed jeans"],
-    traditional: ["churidar", "traditional trousers"]
-  };
-
-  const shoesMap = {
-    sneakers: "white sneakers",
-    formal: "black formal shoes",
-    boots: "leather boots"
-  };
-
-  // =========================
-  // 🔹 OUTFIT GENERATOR
+  // 🔹 OUTFIT GENERATION
   // =========================
 
   function generate(type) {
-
-    let style = input.vibe || "minimal";
 
     let o = {
       name: type,
       top: "",
       bottom: "",
-      shoes: shoesMap[input.footwear] || "sneakers",
-      fabric: input.climate === "hot" ? "cotton / linen" : "layered fabrics",
+      shoes: "",
+      fabric: "",
       explanation: explanation,
       avoid: avoid,
       score: 0
     };
 
-    let topOptions = tops[style];
-    let bottomOptions = bottoms[style];
+    // Fabric
+    o.fabric = input.climate === "hot"
+      ? "breathable cotton or linen"
+      : "layered fabrics (cotton + jacket)";
 
-    // Variation logic
+    // Shoes
+    const shoesMap = {
+      sneakers: "minimal white leather sneakers",
+      formal: "black leather formal shoes",
+      boots: "brown leather boots"
+    };
+
+    o.shoes = shoesMap[input.footwear] || "clean sneakers";
+
+    // SAFE
     if (type === "Safe") {
-      o.top = `${attr.palette[0]} ${topOptions[0]}`;
-      o.bottom = bottomOptions[0];
+      o.top = `${attr.palette[0]} slim-fit Oxford cotton shirt`;
+      o.bottom = "charcoal slim-fit chinos";
     }
 
+    // BALANCED
     if (type === "Balanced") {
-      o.top = `${attr.palette[1]} ${topOptions[1]}`;
-      o.bottom = bottomOptions[1];
+      o.top = `${attr.palette[1]} linen shirt`;
+      o.bottom = "beige tailored trousers";
     }
 
+    // BOLD
     if (type === "Bold") {
-      o.top = `${attr.palette[2]} ${topOptions[2] || topOptions[1]}`;
-      o.bottom = bottomOptions[0];
+      o.top = `${attr.palette[2]} textured statement shirt`;
+      o.bottom = "contrast tailored pants";
+    }
+
+    // VIBE ADJUSTMENTS
+    if (input.vibe === "street" && type === "Bold") {
+      o.top = "oversized graphic t-shirt";
+      o.bottom = "relaxed-fit cargo pants";
+    }
+
+    if (input.vibe === "traditional" && type === "Safe") {
+      o.top = "cotton straight-fit kurta";
+      o.bottom = "tailored churidar trousers";
     }
 
     return o;
@@ -107,30 +127,61 @@ function runEngine() {
   ];
 
   // =========================
-  // 🔹 FAIR SCORING
+  // 🔹 FAIR SCORING SYSTEM
   // =========================
 
   function score(o) {
 
     let s = 60;
 
-    // Proportion
-    if (attr.silhouette === "vertical") s += 15;
-
-    // Fit
-    if (input.goal === "slimmer") {
-      if (o.bottom.includes("slim")) s += 10;
-      else s -= 10;
+    // PROPORTION
+    if (attr.silhouette === "vertical") {
+      if (input.height === "short") s += 15;
+      else s += 5;
     }
 
-    // Style match
+    if (input.height === "short" && o.top !== o.bottom) {
+      s -= 10;
+    }
+
+    // FIT
+    if (input.goal === "slimmer") {
+      if (o.bottom.includes("slim")) s += 12;
+      else s -= 12;
+    }
+
+    // BODY
+    if (input.bodyShape === "triangle") {
+      if (o.top.includes("beige") || o.top.includes("white")) s += 8;
+      else s -= 5;
+    }
+
+    if (input.bodyShape === "inverted") {
+      if (o.top.includes("black") || o.top.includes("charcoal")) s += 8;
+      else s -= 5;
+    }
+
+    // CONTEXT
+    if (input.occasion === "formal") {
+      if (o.top.includes("shirt")) s += 10;
+      else s -= 8;
+    }
+
+    if (input.climate === "hot") {
+      if (o.fabric.includes("cotton")) s += 8;
+      if (o.fabric.includes("layered")) s -= 8;
+    }
+
+    // STYLE MATCH
     if (input.vibe === "minimal" && o.name === "Safe") s += 10;
     if (input.vibe === "classic" && o.name === "Balanced") s += 10;
     if (input.vibe === "street" && o.name === "Bold") s += 10;
 
-    // Climate
-    if (input.climate === "hot" && o.fabric.includes("cotton")) s += 8;
+    if (input.vibe === "traditional" && o.top.includes("kurta")) {
+      s += 12;
+    }
 
+    // LIMIT
     if (s > 100) s = 100;
     if (s < 0) s = 0;
 
@@ -171,6 +222,10 @@ function display(outfits) {
 
   document.getElementById("result").innerHTML = html;
 }
+
+// =========================
+// 🔹 HELPER
+// =========================
 
 function get(id) {
   return document.getElementById(id).value;
