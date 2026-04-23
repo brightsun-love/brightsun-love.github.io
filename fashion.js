@@ -13,7 +13,7 @@ function runEngine() {
   };
 
   // =========================
-  // 🔹 ATTRIBUTES
+  // 🔹 ATTRIBUTE ENGINE
   // =========================
 
   let attr = {
@@ -36,12 +36,12 @@ function runEngine() {
   }
 
   // =========================
-  // 🔹 DATA EXPANSION (CORE)
+  // 🔹 CONTROLLED DATA SET
   // =========================
 
   const tops = {
     minimal: ["Oxford shirt", "plain t-shirt", "polo shirt"],
-    classic: ["formal shirt", "linen shirt", "blazer + shirt"],
+    classic: ["formal shirt", "linen shirt", "blazer with shirt"],
     street: ["oversized t-shirt", "hoodie", "graphic tee"],
     traditional: ["kurta", "embroidered kurta"]
   };
@@ -54,56 +54,75 @@ function runEngine() {
   };
 
   const shoesMap = {
-    sneakers: "white sneakers",
-    formal: "black formal shoes",
-    boots: "leather boots"
+    sneakers: "minimal white sneakers",
+    formal: "black leather formal shoes",
+    boots: "brown leather boots"
   };
+
+  // =========================
+  // 🔹 CONTROLLED VARIATION FUNCTION
+  // =========================
+
+  function pickOption(list, seedOffset = 0) {
+    if (!list || list.length === 0) return "";
+
+    // Controlled variation (not pure random)
+    let seed = (new Date().getMinutes() + seedOffset) % list.length;
+    return list[seed];
+  }
 
   // =========================
   // 🔹 OUTFIT GENERATOR
   // =========================
 
-  function generate(type) {
+  function generate(type, offset) {
 
     let style = input.vibe || "minimal";
+
+    let topOptions = tops[style];
+    let bottomOptions = bottoms[style];
 
     let o = {
       name: type,
       top: "",
       bottom: "",
-      shoes: shoesMap[input.footwear] || "sneakers",
+      shoes: shoesMap[input.footwear] || "clean sneakers",
       fabric: input.climate === "hot" ? "cotton / linen" : "layered fabrics",
       explanation: explanation,
       avoid: avoid,
       score: 0
     };
 
-    let topOptions = tops[style];
-    let bottomOptions = bottoms[style];
+    // Controlled variation selection
+    let topPick = pickOption(topOptions, offset);
+    let bottomPick = pickOption(bottomOptions, offset + 1);
 
-    // Variation logic
+    // Apply palette
+    o.top = `${attr.palette[offset % attr.palette.length]} ${topPick}`;
+    o.bottom = bottomPick;
+
+    // Special logic
     if (type === "Safe") {
-      o.top = `${attr.palette[0]} ${topOptions[0]}`;
       o.bottom = bottomOptions[0];
-    }
-
-    if (type === "Balanced") {
-      o.top = `${attr.palette[1]} ${topOptions[1]}`;
-      o.bottom = bottomOptions[1];
     }
 
     if (type === "Bold") {
-      o.top = `${attr.palette[2]} ${topOptions[2] || topOptions[1]}`;
-      o.bottom = bottomOptions[0];
+      o.top = `${attr.palette[2]} ${topOptions[topOptions.length - 1]}`;
+    }
+
+    // Traditional override
+    if (input.vibe === "traditional") {
+      o.top = pickOption(tops.traditional, offset);
+      o.bottom = pickOption(bottoms.traditional, offset);
     }
 
     return o;
   }
 
   let outfits = [
-    generate("Safe"),
-    generate("Balanced"),
-    generate("Bold")
+    generate("Safe", 1),
+    generate("Balanced", 2),
+    generate("Bold", 3)
   ];
 
   // =========================
@@ -114,21 +133,17 @@ function runEngine() {
 
     let s = 60;
 
-    // Proportion
     if (attr.silhouette === "vertical") s += 15;
 
-    // Fit
     if (input.goal === "slimmer") {
       if (o.bottom.includes("slim")) s += 10;
       else s -= 10;
     }
 
-    // Style match
     if (input.vibe === "minimal" && o.name === "Safe") s += 10;
     if (input.vibe === "classic" && o.name === "Balanced") s += 10;
     if (input.vibe === "street" && o.name === "Bold") s += 10;
 
-    // Climate
     if (input.climate === "hot" && o.fabric.includes("cotton")) s += 8;
 
     if (s > 100) s = 100;
