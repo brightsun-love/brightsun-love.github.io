@@ -17,108 +17,82 @@ function runEngine() {
   let explanation = [];
   let avoid = [];
 
-  // COLOR
   let palette = input.undertone === "warm"
     ? ["beige", "olive", "brown"]
     : ["white", "grey", "black"];
 
-  // BASE OUTFIT
   let top = palette[0] + " shirt";
   let bottom = "dark trousers";
 
-  // =========================
-  // PROPORTION + BODY
-  // =========================
+  // LOGIC (same, slightly refined wording)
 
   if (input.height === "short" || input.goal === "taller") {
-    explanation.push("Vertical styling makes you look taller");
-    avoid.push("Avoid strong color contrast");
-  }
-
-  if (input.legRatio === "short") {
-    explanation.push("High-waist pants improve leg length appearance");
+    explanation.push("Using vertical styling helps create a taller appearance");
+    avoid.push("Avoid strong contrast between top and bottom");
   }
 
   if (input.goal === "slimmer") {
-    explanation.push("Slim fit reduces visual bulk");
-    avoid.push("Avoid oversized clothes");
+    explanation.push("A slimmer fit helps reduce visual bulk");
+    avoid.push("Avoid overly loose or baggy clothing");
   }
 
   if (input.bodyShape === "triangle") {
-    explanation.push("Lighter top balances lower body");
+    explanation.push("A lighter top helps balance your lower body");
   }
 
   if (input.bodyShape === "inverted") {
-    explanation.push("Darker top balances upper body");
+    explanation.push("A darker top balances broader shoulders");
   }
 
   if (input.bodyShape === "oval") {
-    explanation.push("Vertical lines reduce focus on midsection");
+    explanation.push("Clean vertical lines reduce focus on midsection");
   }
 
-  // =========================
-  // FIT (NOW PROPERLY USED)
-  // =========================
-
+  // FIT
   if (input.fit === "slim") {
     top = "fitted " + top;
     bottom = "slim-fit trousers";
   }
 
   if (input.fit === "oversized") {
-    top = "oversized " + top;
-    bottom = "relaxed fit pants";
+    top = "relaxed " + top;
+    bottom = "loose fit pants";
   }
 
-  // =========================
-  // STYLE VIBE
-  // =========================
-
+  // STYLE
   if (input.vibe === "minimal") {
-    explanation.push("Minimal style gives a clean and sharp look");
+    explanation.push("Minimal styling keeps your look clean and refined");
   }
 
   if (input.vibe === "classic") {
-    explanation.push("Classic style creates a polished appearance");
+    explanation.push("Classic pieces create a polished, timeless look");
   }
 
   if (input.vibe === "street") {
-    explanation.push("Streetwear adds a bold and trendy vibe");
-    bottom = "cargo / relaxed pants";
+    explanation.push("Streetwear adds a modern and bold character");
+    bottom = "relaxed cargo pants";
   }
 
   if (input.vibe === "traditional") {
-    explanation.push("Traditional style suits cultural settings");
+    explanation.push("Traditional wear aligns well with cultural settings");
     top = "kurta";
     bottom = "churidar";
   }
 
-  // =========================
-  // CLIMATE
-  // =========================
-
   let fabric = input.climate === "hot"
-    ? "cotton / linen"
+    ? "lightweight cotton or linen"
     : input.climate === "cold"
-    ? "layered fabrics (jackets)"
-    : "balanced fabrics";
+    ? "layered fabrics like wool or jackets"
+    : "balanced fabrics for comfort";
 
-  // =========================
-  // SCORING (MEANINGFUL)
-  // =========================
-
-  let score = 70;
+  let score = 75;
 
   if (input.goal === "slimmer" && input.fit === "slim") score += 10;
   if (input.vibe === "classic") score += 5;
-  if (input.climate === "hot") score += 5;
 
   if (score > 100) score = 100;
 
-  // =========================
-  // ALTERNATIVE (CONTROLLED VARIATION)
-  // =========================
-
+  // Alternative
   let altTop = palette[1] + " shirt";
   let altBottom = "neutral chinos";
 
@@ -132,28 +106,30 @@ function runEngine() {
     altBottom = "traditional trousers";
   }
 
-  // =========================
-  // OUTPUT
-  // =========================
-
   document.getElementById("result").innerHTML = `
-    <h3>Best Outfit (Score: ${score})</h3>
+    <div class="card">
+      <h3>Best Outfit <span class="score">${score}/100</span></h3>
 
-    <p><b>Top:</b> ${top}</p>
-    <p><b>Bottom:</b> ${bottom}</p>
-    <p><b>Shoes:</b> ${input.footwear}</p>
-    <p><b>Fabric:</b> ${fabric}</p>
+      <p><b>Top:</b> ${top}</p>
+      <p><b>Bottom:</b> ${bottom}</p>
+      <p><b>Shoes:</b> ${input.footwear}</p>
+      <p><b>Fabric:</b> ${fabric}</p>
+    </div>
 
-    <h4>Alternative Option</h4>
+    <div class="card">
+      <h4>Alternative Option</h4>
 
-    <p><b>Top:</b> ${altTop}</p>
-    <p><b>Bottom:</b> ${altBottom}</p>
+      <p><b>Top:</b> ${altTop}</p>
+      <p><b>Bottom:</b> ${altBottom}</p>
+    </div>
 
-    <p><b>Why it works:</b></p>
-    <ul>${explanation.map(e => `<li>${e}</li>`).join("")}</ul>
+    <div class="card">
+      <h4>Why this works</h4>
+      <ul>${explanation.map(e => `<li>${e}</li>`).join("")}</ul>
 
-    <p><b>Avoid:</b></p>
-    <ul>${avoid.map(a => `<li>${a}</li>`).join("")}</ul>
+      <h4>Avoid</h4>
+      <ul>${avoid.map(a => `<li>${a}</li>`).join("")}</ul>
+    </div>
   `;
 }
 
