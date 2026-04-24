@@ -91,7 +91,18 @@ function runEngine() {
     bottom = "churidar";
   }
 
-  // 🔥 SAFE ADDITION: ALTERNATIVE
+  // SCORE
+  let score = 70;
+
+  if (input.goal === "slimmer") score += 10;
+  if (input.goal === "taller") score += 10;
+  if (input.vibe === "classic") score += 5;
+  if (input.vibe === "minimal") score += 5;
+  if (input.climate === "hot") score += 5;
+
+  if (score > 100) score = 100;
+
+  // ALTERNATIVE
   let altTop = palette[1] + " shirt";
   let altBottom = "neutral trousers";
 
@@ -107,7 +118,7 @@ function runEngine() {
 
   // OUTPUT
   document.getElementById("result").innerHTML = `
-    <h3>Best Outfit</h3>
+    <h3>Best Outfit (Score: ${score}/100)</h3>
 
     <p><b>Top:</b> ${top}</p>
     <p><b>Bottom:</b> ${bottom}</p>
