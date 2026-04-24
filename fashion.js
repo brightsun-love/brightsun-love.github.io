@@ -4,137 +4,57 @@ function runEngine() {
     height: get("height"),
     bodyShape: get("bodyShape"),
     goal: get("goal"),
-    legRatio: get("legRatio"),
-    undertone: get("undertone"),
-    contrast: get("contrast"),
-    fit: get("fit"),
-    occasion: get("occasion"),
-    climate: get("climate"),
     vibe: get("vibe"),
     footwear: get("footwear")
   };
 
-  let explanation = [];
-  let avoid = [];
-
-  // COLOR
-  let palette = input.undertone === "warm"
-    ? ["beige", "olive", "brown"]
-    : ["white", "grey", "black"];
-
-  let top = palette[0] + " shirt";
-  let bottom = "dark trousers";
-
-  // PROPORTION
-  if (input.height === "short" || input.goal === "taller") {
-    explanation.push("Vertical styling makes you look taller");
-    avoid.push("Avoid strong color breaks");
+  // 🔥 FIX: REQUIRED INPUT CHECK
+  if (!input.height || !input.bodyShape || !input.goal || !input.vibe) {
+    document.getElementById("result").innerHTML = `
+      <p style="color:red;">
+        Please select at least:
+        Height, Body, Goal, and Style
+      </p>
+    `;
+    return;
   }
 
-  if (input.legRatio === "short") {
-    explanation.push("High-waist pants make legs look longer");
+  let explanation = [];
+
+  let top = "clean shirt";
+  let bottom = "dark trousers";
+
+  if (input.goal === "taller") {
+    explanation.push("Vertical styling helps you look taller");
   }
 
   if (input.goal === "slimmer") {
     explanation.push("Slim fit reduces bulk");
-    avoid.push("Avoid oversized clothes");
   }
 
-  if (input.goal === "broader") {
-    explanation.push("Structured clothing adds presence");
-  }
-
-  // BODY
   if (input.bodyShape === "triangle") {
     explanation.push("Lighter top balances lower body");
   }
 
-  if (input.bodyShape === "inverted") {
-    explanation.push("Darker top balances upper body");
-  }
-
-  if (input.bodyShape === "oval") {
-    explanation.push("Vertical lines reduce stomach focus");
-  }
-
-  // COLOR THEORY
-  if (input.contrast === "high") {
-    explanation.push("High contrast outfits suit your features");
-  } else {
-    explanation.push("Soft color combinations create harmony");
-  }
-
-  // CLIMATE
-  let fabric = input.climate === "hot"
-    ? "cotton / linen"
-    : input.climate === "cold"
-    ? "layered fabrics"
-    : "balanced fabrics";
-
-  // STYLE
-  if (input.vibe === "minimal") {
-    explanation.push("Minimal style gives clean look");
-  }
-
-  if (input.vibe === "classic") {
-    explanation.push("Classic style creates polished appearance");
-  }
-
   if (input.vibe === "street") {
-    explanation.push("Streetwear gives bold modern vibe");
-    bottom = "relaxed pants";
+    top = "oversized t-shirt";
+    bottom = "cargo pants";
   }
 
   if (input.vibe === "traditional") {
-    explanation.push("Traditional style suits cultural settings");
     top = "kurta";
     bottom = "churidar";
   }
 
-  // SCORE
-  let score = 70;
-
-  if (input.goal === "slimmer") score += 10;
-  if (input.goal === "taller") score += 10;
-  if (input.vibe === "classic") score += 5;
-  if (input.vibe === "minimal") score += 5;
-  if (input.climate === "hot") score += 5;
-
-  if (score > 100) score = 100;
-
-  // ALTERNATIVE
-  let altTop = palette[1] + " shirt";
-  let altBottom = "neutral trousers";
-
-  if (input.vibe === "street") {
-    altTop = "hoodie";
-    altBottom = "cargo pants";
-  }
-
-  if (input.vibe === "traditional") {
-    altTop = "embroidered kurta";
-    altBottom = "traditional trousers";
-  }
-
-  // OUTPUT
   document.getElementById("result").innerHTML = `
-    <h3>Best Outfit (Score: ${score}/100)</h3>
+    <h3>Best Outfit</h3>
 
     <p><b>Top:</b> ${top}</p>
     <p><b>Bottom:</b> ${bottom}</p>
-    <p><b>Shoes:</b> ${input.footwear}</p>
-    <p><b>Fabric:</b> ${fabric}</p>
+    <p><b>Shoes:</b> ${input.footwear || "your choice"}</p>
 
-    <h4>Alternative Option</h4>
-
-    <p><b>Top:</b> ${altTop}</p>
-    <p><b>Bottom:</b> ${altBottom}</p>
-
-    <p><b>Why it works:</b></p>
+    <p><b>Why:</b></p>
     <ul>${explanation.map(e => `<li>${e}</li>`).join("")}</ul>
-
-    <p><b>Avoid:</b></p>
-    <ul>${avoid.map(a => `<li>${a}</li>`).join("")}</ul>
   `;
 }
 
