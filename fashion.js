@@ -17,6 +17,7 @@ function runEngine() {
   let explanation = [];
   let avoid = [];
 
+  // COLOR
   let palette = input.undertone === "warm"
     ? ["beige", "olive", "brown"]
     : ["white", "grey", "black"];
@@ -30,12 +31,20 @@ function runEngine() {
     avoid.push("Avoid strong color breaks");
   }
 
+  if (input.legRatio === "short") {
+    explanation.push("High-waist pants make legs look longer");
+  }
+
   if (input.goal === "slimmer") {
     explanation.push("Slim fit reduces bulk");
     avoid.push("Avoid oversized clothes");
   }
 
-  // BODY
+  if (input.goal === "broader") {
+    explanation.push("Structured clothing adds presence");
+  }
+
+  // BODY SHAPE
   if (input.bodyShape === "triangle") {
     explanation.push("Lighter top balances lower body");
   }
@@ -48,33 +57,44 @@ function runEngine() {
     explanation.push("Vertical lines reduce stomach focus");
   }
 
+  // COLOR THEORY
+  if (input.contrast === "high") {
+    explanation.push("High contrast outfits suit your natural features");
+  } else {
+    explanation.push("Soft color combinations create harmony");
+  }
+
   // CLIMATE
   let fabric = input.climate === "hot"
     ? "cotton / linen"
-    : "layered fabrics";
+    : input.climate === "cold"
+    ? "layered fabrics (jackets)"
+    : "balanced fabrics";
 
-  // 🔥 STYLE VIBE ENGINE
+  // STYLE
   if (input.vibe === "minimal") {
-    explanation.push("Minimal style gives clean and sharp look");
+    explanation.push("Minimal style gives clean look");
   }
 
   if (input.vibe === "classic") {
-    explanation.push("Classic style creates a polished appearance");
+    explanation.push("Classic style creates polished appearance");
   }
 
   if (input.vibe === "street") {
-    explanation.push("Streetwear adds bold and trendy vibe");
-    bottom = "relaxed fit pants";
+    explanation.push("Streetwear gives bold modern vibe");
+    bottom = "relaxed pants";
   }
 
   if (input.vibe === "traditional") {
-    top = "traditional kurta";
     explanation.push("Traditional style suits cultural settings");
+    top = "kurta";
+    bottom = "churidar";
   }
 
   // RESULT
   document.getElementById("result").innerHTML = `
-    <h3>Best Outfit</h3>
+    <h3>Best Outfit For You</h3>
+
     <p><b>Top:</b> ${top}</p>
     <p><b>Bottom:</b> ${bottom}</p>
     <p><b>Shoes:</b> ${input.footwear}</p>
