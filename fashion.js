@@ -22,29 +22,28 @@ function runEngine() {
     ? ["beige", "olive", "brown"]
     : ["white", "grey", "black"];
 
+  // BASE OUTFIT
   let top = palette[0] + " shirt";
   let bottom = "dark trousers";
 
-  // PROPORTION
+  // =========================
+  // PROPORTION + BODY
+  // =========================
+
   if (input.height === "short" || input.goal === "taller") {
     explanation.push("Vertical styling makes you look taller");
-    avoid.push("Avoid strong color breaks");
+    avoid.push("Avoid strong color contrast");
   }
 
   if (input.legRatio === "short") {
-    explanation.push("High-waist pants make legs look longer");
+    explanation.push("High-waist pants improve leg length appearance");
   }
 
   if (input.goal === "slimmer") {
-    explanation.push("Slim fit reduces bulk");
+    explanation.push("Slim fit reduces visual bulk");
     avoid.push("Avoid oversized clothes");
   }
 
-  if (input.goal === "broader") {
-    explanation.push("Structured clothing adds presence");
-  }
-
-  // BODY SHAPE
   if (input.bodyShape === "triangle") {
     explanation.push("Lighter top balances lower body");
   }
@@ -54,35 +53,38 @@ function runEngine() {
   }
 
   if (input.bodyShape === "oval") {
-    explanation.push("Vertical lines reduce stomach focus");
+    explanation.push("Vertical lines reduce focus on midsection");
   }
 
-  // COLOR THEORY
-  if (input.contrast === "high") {
-    explanation.push("High contrast outfits suit your natural features");
-  } else {
-    explanation.push("Soft color combinations create harmony");
+  // =========================
+  // FIT (NOW PROPERLY USED)
+  // =========================
+
+  if (input.fit === "slim") {
+    top = "fitted " + top;
+    bottom = "slim-fit trousers";
   }
 
-  // CLIMATE
-  let fabric = input.climate === "hot"
-    ? "cotton / linen"
-    : input.climate === "cold"
-    ? "layered fabrics (jackets)"
-    : "balanced fabrics";
+  if (input.fit === "oversized") {
+    top = "oversized " + top;
+    bottom = "relaxed fit pants";
+  }
 
-  // STYLE
+  // =========================
+  // STYLE VIBE
+  // =========================
+
   if (input.vibe === "minimal") {
-    explanation.push("Minimal style gives clean look");
+    explanation.push("Minimal style gives a clean and sharp look");
   }
 
   if (input.vibe === "classic") {
-    explanation.push("Classic style creates polished appearance");
+    explanation.push("Classic style creates a polished appearance");
   }
 
   if (input.vibe === "street") {
-    explanation.push("Streetwear gives bold modern vibe");
-    bottom = "relaxed pants";
+    explanation.push("Streetwear adds a bold and trendy vibe");
+    bottom = "cargo / relaxed pants";
   }
 
   if (input.vibe === "traditional") {
@@ -91,14 +93,61 @@ function runEngine() {
     bottom = "churidar";
   }
 
-  // RESULT
+  // =========================
+  // CLIMATE
+  // =========================
+
+  let fabric = input.climate === "hot"
+    ? "cotton / linen"
+    : input.climate === "cold"
+    ? "layered fabrics (jackets)"
+    : "balanced fabrics";
+
+  // =========================
+  // SCORING (MEANINGFUL)
+  // =========================
+
+  let score = 70;
+
+  if (input.goal === "slimmer" && input.fit === "slim") score += 10;
+  if (input.vibe === "classic") score += 5;
+  if (input.climate === "hot") score += 5;
+
+  if (score > 100) score = 100;
+
+  // =========================
+  // ALTERNATIVE (CONTROLLED VARIATION)
+  // =========================
+
+  let altTop = palette[1] + " shirt";
+  let altBottom = "neutral chinos";
+
+  if (input.vibe === "street") {
+    altTop = "hoodie";
+    altBottom = "cargo pants";
+  }
+
+  if (input.vibe === "traditional") {
+    altTop = "embroidered kurta";
+    altBottom = "traditional trousers";
+  }
+
+  // =========================
+  // OUTPUT
+  // =========================
+
   document.getElementById("result").innerHTML = `
-    <h3>Best Outfit For You</h3>
+    <h3>Best Outfit (Score: ${score})</h3>
 
     <p><b>Top:</b> ${top}</p>
     <p><b>Bottom:</b> ${bottom}</p>
     <p><b>Shoes:</b> ${input.footwear}</p>
     <p><b>Fabric:</b> ${fabric}</p>
+
+    <h4>Alternative Option</h4>
+
+    <p><b>Top:</b> ${altTop}</p>
+    <p><b>Bottom:</b> ${altBottom}</p>
 
     <p><b>Why it works:</b></p>
     <ul>${explanation.map(e => `<li>${e}</li>`).join("")}</ul>
