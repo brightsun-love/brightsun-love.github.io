@@ -2,59 +2,34 @@
 <html>
 <head>
   <title>Fashion Hub</title>
-
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, Arial;
+      font-family: Arial;
       max-width: 700px;
       margin: auto;
       padding: 20px;
-      background: #f5f5f7;
-      color: #111;
     }
 
     h1 {
       text-align: center;
-      font-weight: 600;
     }
 
     p.helper {
-      text-align: center;
+      font-size: 14px;
       color: #666;
-      margin-bottom: 25px;
     }
 
     select, button {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       margin: 8px 0;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 14px;
     }
 
-    button {
-      background: #111;
-      color: white;
-      cursor: pointer;
-    }
-
-    .card {
+    .result {
       margin-top: 20px;
-      padding: 18px;
-      border-radius: 14px;
-      background: white;
-      border: 1px solid #eee;
-    }
-
-    .score {
-      float: right;
-      color: #666;
-      font-size: 13px;
-    }
-
-    ul {
-      padding-left: 18px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -62,15 +37,90 @@
 <body>
 
 <h1>Fashion Hub</h1>
-<p class="helper">Smart styling based on your body & preferences</p>
+<p class="helper">Choose what fits you best</p>
 
-<!-- KEEP YOUR EXISTING SELECTS (UNCHANGED) -->
+<select id="height">
+  <option value="">Your Height</option>
+  <option value="short">Below 165 cm</option>
+  <option value="medium">165–175 cm</option>
+  <option value="tall">Above 175 cm</option>
+</select>
 
-<!-- (your full input section stays same) -->
+<select id="bodyShape">
+  <option value="">What stands out most?</option>
+  <option value="rectangle">Body looks straight</option>
+  <option value="triangle">Lower body heavier</option>
+  <option value="inverted">Upper body broader</option>
+  <option value="oval">Stomach stands out</option>
+</select>
+
+<select id="goal">
+  <option value="">Your goal</option>
+  <option value="taller">Look taller</option>
+  <option value="slimmer">Look slimmer</option>
+  <option value="broader">Look broader</option>
+</select>
+
+<select id="legRatio">
+  <option value="">Body proportion</option>
+  <option value="short">Upper body longer</option>
+  <option value="balanced">Balanced</option>
+  <option value="long">Legs longer</option>
+</select>
+
+<select id="undertone">
+  <option value="">Jewelry suits you</option>
+  <option value="warm">Gold</option>
+  <option value="cool">Silver</option>
+  <option value="neutral">Both</option>
+</select>
+
+<select id="contrast">
+  <option value="">Your look</option>
+  <option value="low">Soft</option>
+  <option value="medium">Balanced</option>
+  <option value="high">Sharp</option>
+</select>
+
+<select id="fit">
+  <option value="">Your fit</option>
+  <option value="slim">Slim</option>
+  <option value="regular">Regular</option>
+  <option value="oversized">Oversized</option>
+</select>
+
+<select id="occasion">
+  <option value="">Occasion</option>
+  <option value="casual">Casual</option>
+  <option value="formal">Formal</option>
+  <option value="party">Party</option>
+</select>
+
+<select id="climate">
+  <option value="">Weather</option>
+  <option value="hot">Hot</option>
+  <option value="moderate">Moderate</option>
+  <option value="cold">Cold</option>
+</select>
+
+<select id="vibe">
+  <option value="">Style</option>
+  <option value="minimal">Minimal</option>
+  <option value="classic">Classic</option>
+  <option value="street">Street</option>
+  <option value="traditional">Traditional</option>
+</select>
+
+<select id="footwear">
+  <option value="">Shoes</option>
+  <option value="sneakers">Sneakers</option>
+  <option value="formal">Formal</option>
+  <option value="boots">Boots</option>
+</select>
 
 <button onclick="runEngine()">Get Recommendation</button>
 
-<div id="result"></div>
+<div id="result" class="result"></div>
 
 <script src="fashion.js"></script>
 
