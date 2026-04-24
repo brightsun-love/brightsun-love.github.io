@@ -22,28 +22,29 @@ function runEngine() {
     ? ["beige", "olive", "brown"]
     : ["white", "grey", "black"];
 
-  // BASE OUTFIT
   let top = palette[0] + " shirt";
   let bottom = "dark trousers";
 
-  // =========================
-  // PROPORTION + BODY
-  // =========================
-
+  // PROPORTION
   if (input.height === "short" || input.goal === "taller") {
     explanation.push("Vertical styling makes you look taller");
-    avoid.push("Avoid strong color contrast");
+    avoid.push("Avoid strong color breaks");
   }
 
   if (input.legRatio === "short") {
-    explanation.push("High-waist pants improve leg length appearance");
+    explanation.push("High-waist pants make legs look longer");
   }
 
   if (input.goal === "slimmer") {
-    explanation.push("Slim fit reduces visual bulk");
+    explanation.push("Slim fit reduces bulk");
     avoid.push("Avoid oversized clothes");
   }
 
+  if (input.goal === "broader") {
+    explanation.push("Structured clothing adds presence");
+  }
+
+  // BODY
   if (input.bodyShape === "triangle") {
     explanation.push("Lighter top balances lower body");
   }
@@ -53,38 +54,35 @@ function runEngine() {
   }
 
   if (input.bodyShape === "oval") {
-    explanation.push("Vertical lines reduce focus on midsection");
+    explanation.push("Vertical lines reduce stomach focus");
   }
 
-  // =========================
-  // FIT (NOW PROPERLY USED)
-  // =========================
-
-  if (input.fit === "slim") {
-    top = "fitted " + top;
-    bottom = "slim-fit trousers";
+  // COLOR THEORY
+  if (input.contrast === "high") {
+    explanation.push("High contrast outfits suit your features");
+  } else {
+    explanation.push("Soft color combinations create harmony");
   }
 
-  if (input.fit === "oversized") {
-    top = "oversized " + top;
-    bottom = "relaxed fit pants";
-  }
+  // CLIMATE
+  let fabric = input.climate === "hot"
+    ? "cotton / linen"
+    : input.climate === "cold"
+    ? "layered fabrics"
+    : "balanced fabrics";
 
-  // =========================
-  // STYLE VIBE
-  // =========================
-
+  // STYLE
   if (input.vibe === "minimal") {
-    explanation.push("Minimal style gives a clean and sharp look");
+    explanation.push("Minimal style gives clean look");
   }
 
   if (input.vibe === "classic") {
-    explanation.push("Classic style creates a polished appearance");
+    explanation.push("Classic style creates polished appearance");
   }
 
   if (input.vibe === "street") {
-    explanation.push("Streetwear adds a bold and trendy vibe");
-    bottom = "cargo / relaxed pants";
+    explanation.push("Streetwear gives bold modern vibe");
+    bottom = "relaxed pants";
   }
 
   if (input.vibe === "traditional") {
@@ -93,34 +91,9 @@ function runEngine() {
     bottom = "churidar";
   }
 
-  // =========================
-  // CLIMATE
-  // =========================
-
-  let fabric = input.climate === "hot"
-    ? "cotton / linen"
-    : input.climate === "cold"
-    ? "layered fabrics (jackets)"
-    : "balanced fabrics";
-
-  // =========================
-  // SCORING (MEANINGFUL)
-  // =========================
-
-  let score = 70;
-
-  if (input.goal === "slimmer" && input.fit === "slim") score += 10;
-  if (input.vibe === "classic") score += 5;
-  if (input.climate === "hot") score += 5;
-
-  if (score > 100) score = 100;
-
-  // =========================
-  // ALTERNATIVE (CONTROLLED VARIATION)
-  // =========================
-
+  // 🔥 SAFE ADDITION: ALTERNATIVE
   let altTop = palette[1] + " shirt";
-  let altBottom = "neutral chinos";
+  let altBottom = "neutral trousers";
 
   if (input.vibe === "street") {
     altTop = "hoodie";
@@ -132,12 +105,9 @@ function runEngine() {
     altBottom = "traditional trousers";
   }
 
-  // =========================
   // OUTPUT
-  // =========================
-
   document.getElementById("result").innerHTML = `
-    <h3>Best Outfit (Score: ${score})</h3>
+    <h3>Best Outfit</h3>
 
     <p><b>Top:</b> ${top}</p>
     <p><b>Bottom:</b> ${bottom}</p>
