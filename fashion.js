@@ -4,74 +4,116 @@ function runEngine() {
     height: get("height"),
     bodyShape: get("bodyShape"),
     goal: get("goal"),
+    fit: get("fit"),
+    occasion: get("occasion"),
+    climate: get("climate"),
     vibe: get("vibe"),
     footwear: get("footwear")
   };
 
+  // 🔒 Required check
+  if (!input.height || !input.bodyShape || !input.goal || !input.vibe || !input.occasion) {
+    document.getElementById("result").innerHTML =
+      "<p style='color:red;'>Please fill main details (height, body, goal, style, occasion)</p>";
+    return;
+  }
+
   let explanation = [];
 
-  let top = null;
-  let bottom = null;
+  let top = "";
+  let bottom = "";
+  let outer = "";
 
   // =========================
-  // 🔥 SMART PARTIAL LOGIC
+  // 🔥 OCCASION ENGINE (CORE)
   // =========================
 
-  // Case 1: Only footwear selected
-  if (!input.height && !input.bodyShape && !input.goal && !input.vibe && input.footwear) {
-    document.getElementById("result").innerHTML = `
-      <h3>Footwear Suggestion</h3>
-      <p>You prefer <b>${input.footwear}</b>.</p>
-      <p>Pair it with clean, well-fitted outfits for best look.</p>
-    `;
-    return;
+  if (input.occasion === "casual") {
+    top = "t-shirt";
+    bottom = "jeans";
+    explanation.push("Casual outfits prioritize comfort and simplicity");
   }
 
-  // Case 2: Style only
-  if (input.vibe && !input.height && !input.bodyShape && !input.goal) {
-    document.getElementById("result").innerHTML = `
-      <h3>Style Suggestion</h3>
-      <p>You prefer <b>${input.vibe}</b> style.</p>
-      <p>Focus on outfits that match this vibe consistently.</p>
-    `;
-    return;
+  if (input.occasion === "formal") {
+    top = "button-down shirt";
+    bottom = "tailored trousers";
+    outer = "blazer";
+    explanation.push("Formal outfits require structure and clean lines");
+  }
+
+  if (input.occasion === "party") {
+    top = "stylish shirt";
+    bottom = "fitted trousers";
+    explanation.push("Party outfits allow bold and sharp styling");
   }
 
   // =========================
-  // FULL LOGIC (WHEN ENOUGH DATA)
+  // STYLE VIBE
   // =========================
 
-  if (!input.height || !input.bodyShape || !input.goal || !input.vibe) {
-    document.getElementById("result").innerHTML = `
-      <p style="color:red;">Select more details for full outfit recommendation</p>
-    `;
-    return;
+  if (input.vibe === "minimal") {
+    explanation.push("Minimal style keeps everything clean and simple");
   }
 
-  // Base outfit
-  top = "clean shirt";
-  bottom = "dark trousers";
-
-  if (input.goal === "taller") {
-    explanation.push("Vertical styling makes you look taller");
-  }
-
-  if (input.goal === "slimmer") {
-    explanation.push("Slim fit reduces bulk");
-  }
-
-  if (input.bodyShape === "triangle") {
-    explanation.push("Lighter top balances lower body");
+  if (input.vibe === "classic") {
+    explanation.push("Classic style enhances elegance and polish");
   }
 
   if (input.vibe === "street") {
     top = "oversized t-shirt";
     bottom = "cargo pants";
+    explanation.push("Streetwear gives a relaxed and trendy look");
   }
 
   if (input.vibe === "traditional") {
     top = "kurta";
     bottom = "churidar";
+    explanation.push("Traditional outfits suit cultural occasions");
+  }
+
+  // =========================
+  // FIT
+  // =========================
+
+  if (input.fit === "slim") {
+    top = "fitted " + top;
+    bottom = "slim-fit " + bottom;
+  }
+
+  if (input.fit === "oversized") {
+    top = "oversized " + top;
+  }
+
+  // =========================
+  // GOAL LOGIC
+  // =========================
+
+  if (input.goal === "taller") {
+    explanation.push("Vertical styling helps create height illusion");
+  }
+
+  if (input.goal === "slimmer") {
+    explanation.push("Slim fit reduces bulk appearance");
+  }
+
+  if (input.goal === "broader") {
+    outer = outer || "structured jacket";
+    explanation.push("Layering adds visual width");
+  }
+
+  // =========================
+  // CLIMATE
+  // =========================
+
+  let fabric = "balanced fabric";
+
+  if (input.climate === "hot") {
+    fabric = "light cotton or linen";
+  }
+
+  if (input.climate === "cold") {
+    outer = outer || "jacket";
+    fabric = "layered warm fabrics";
   }
 
   // =========================
@@ -83,9 +125,11 @@ function runEngine() {
 
     <p><b>Top:</b> ${top}</p>
     <p><b>Bottom:</b> ${bottom}</p>
-    <p><b>Shoes:</b> ${input.footwear || "your choice"}</p>
+    ${outer ? `<p><b>Layer:</b> ${outer}</p>` : ""}
+    <p><b>Shoes:</b> ${input.footwear || "match with outfit"}</p>
+    <p><b>Fabric:</b> ${fabric}</p>
 
-    <p><b>Why:</b></p>
+    <p><b>Why it works:</b></p>
     <ul>${explanation.map(e => `<li>${e}</li>`).join("")}</ul>
   `;
 }
